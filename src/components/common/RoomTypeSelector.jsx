@@ -33,7 +33,10 @@ const RoomTypeSelector = ({handleRoomInputChange,newRoom}) => {
     <>
       {roomTypes.length>0 && (
         <div>
-          <select className=''
+          <select className='block w-2xs appearance-none rounded-md bg-black/5 py-1.5 
+          pr-12 pl-3 text-base outline-1 
+          outline-offset-2 placeholder:text-gray-500 focus:outline-offset-2
+          focus:outline-2'
           id="roomType" name="roomType" value={newRoom.roomTypes}
           onChange={(e)=>{
             if(e.target.value==="Add New"){

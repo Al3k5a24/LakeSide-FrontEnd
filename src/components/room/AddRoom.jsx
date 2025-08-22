@@ -63,30 +63,35 @@ const AddRoom = () => {
 
   return (
     <>
-    <section className='container my-21 max-w-3xl mx-auto'>
-        <div className='flex flex-col justify-center'>
-            <div className='bg-gray-400 items-center py-4 px-3 rounded-lg shadow-md space-y-3'>
-                <h2 className=' font-bold md:text-3xl'>Add a New Room</h2>
+    <section className='block my-21 max-w-2xl mx-auto'>
+        <div>
+            <div className='bg-[#F3EFE6] items-center py-4 px-3 rounded-3xl inset-shadow-sm inset-shadow-gray-400 drop-shadow-xl/40 space-y-3'>
+                <h2 className='flex ml-2 pb-3 items-start font-semibold md:text-3xl sm:text-2xl'>Add a New Room</h2>
                 <form onSubmit={(handleSubmit)}>
                     <div className='mb-3'>
-                        <label htmlFor="roomType" className='flex flex-row items-start ml-2'>Room Type</label>
-                        <div className='flex relative items-start mt-2 ml-3'>
+                        <label htmlFor="roomType" className='flex font-medium flex-row text-base items-start ml-2'>Room Type</label>
+                        <div className='block items-start mt-2 ml-3 '>
                             <RoomTypeSelector handleRoomInputChange={handleRoomInputChange} 
                             newRoom={newRoom}/>
                         </div>
                     </div>
 
-                    <div className='mb-3 space-x-3'>
                         <label htmlFor="roomPrice"
-                        className=''>Room Price</label>
+                        className='flex font-medium text-base items-start ml-2 pt-5'>Room Price</label>
+                    <div className='mb-3 mt-2 space-x-3 block'>
                             <input 
                             id='roomPrice' 
-                            type="text" 
+                            type="number" 
                             name='roomPrice'
-                            value={newRoom.roomPrice}
                             onChange={handleRoomInputChange}
                             required
-                            className='bg-gray-300 px-4 py-0.5'/>
+                            placeholder='Enter room price'
+                            className='block rounded-md
+                             bg-black/5 w-2xs ml-2.5 
+                             py-1.5 pr-3 pl-2.5 text-base
+                              text-black placeholder:text-gray-500 
+                              outline-1 -outline-offset-1 outline-gray-300
+                              focus:outline-2'/>
                     </div>
 
                      <div className='mb-3 space-x-3'>
