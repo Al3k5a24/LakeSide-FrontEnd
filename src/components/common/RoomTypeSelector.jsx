@@ -56,12 +56,19 @@ const RoomTypeSelector = ({handleRoomInputChange,newRoom}) => {
               ))}
           </select>
           {showNewRoomTypeInput && (
-            <div>
-              <input 
+            <div className='grid grid-cols-1 items-baseline md:grid-cols-2 sm:grid-cols-1'>
+              <input className='relative rounded-md bg-black/5 py-1.5 
+          pr-12 pl-3 text-base outline-1 items-start
+          outline-offset-2 placeholder:text-gray-500 focus:outline-offset-2
+          focus:outline-2 mt-5'
               type="text"
               placeholder='Enter new room type'
               onChange={handleNewRoomInputChange}/>
-              <button onClick={handleAddnewRoomType}>Add</button>
+              <button className='ml-2 p-1 right-0 w-2/8 focus:outline-none
+               text-white bg-red-700 hover:bg-red-800 
+               focus:ring-4 focus:ring-red-300 font-medium 
+               rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900' onClick={handleAddnewRoomType}>Add</button>
             </div>
           )}
         </div>
