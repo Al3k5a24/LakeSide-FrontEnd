@@ -93,23 +93,35 @@ const AddRoom = () => {
                               outline-1 -outline-offset-1 outline-gray-300
                               focus:outline-2'/>
                     </div>
-
-                     <div className='mb-3 space-x-3'>
-                        <label htmlFor="roomPhoto">Room Photo</label>
+                     <div className='grid grid-cols-1 gap-1'>
+                        <label htmlFor="roomPhoto" className='flex font-medium text-base items-start ml-2 pt-5'>Room Photo</label>
+                        <div className='mb-3 mt-2 space-x-3 block'>
                         <input type="file" 
                         id='roomPhoto'
                         name='roomPhoto'
                         accept='image/*'
                         required 
-                        onChange={handleImageChange}/>
+                        onChange={handleImageChange}
+                        className='grid m-2'/>
 
                         {imagePreview && (
                         <img src={imagePreview}
                         alt='Preview Room photo'
+                        className='m-2 rounded-lg'
                         style={{maxWidth:"400px",maxHeight:"400px"}}/>
                         )}
+                        </div>
                     </div>
-                        <button>Submit</button>
+                        <button className='
+                        px-7 py-2.5 text-sm 
+                        font-medium text-white
+                         bg-blue-700 hover:bg-blue-800
+                          focus:ring-4 focus:outline-none
+                           focus:ring-blue-300 
+                           rounded-lg text-
+                            dark:bg-blue-600
+                             dark:hover:bg-blue-700
+                              dark:focus:ring-blue-800'>Submit</button>
                 </form>
             </div>
         </div>
