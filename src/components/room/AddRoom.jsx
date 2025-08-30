@@ -22,7 +22,7 @@ const AddRoom = () => {
         let value=e.target.value
         if(name === "roomPrice"){
             if(!isNaN(value)){
-                value.parseInt(value);
+                value.parseFloat(value)
             }else{
                 value=""
             }
@@ -81,7 +81,7 @@ const AddRoom = () => {
                     <div className='mb-3 mt-2 space-x-3 block'>
                             <input 
                             id='roomPrice' 
-                            type="number" 
+                            type="text" 
                             name='roomPrice'
                             onChange={handleRoomInputChange}
                             required
@@ -121,7 +121,8 @@ const AddRoom = () => {
                            rounded-lg text-
                             dark:bg-blue-600
                              dark:hover:bg-blue-700
-                              dark:focus:ring-blue-800'>Submit</button>
+                              dark:focus:ring-blue-800'
+                              >Submit</button>
                 </form>
             </div>
         </div>
