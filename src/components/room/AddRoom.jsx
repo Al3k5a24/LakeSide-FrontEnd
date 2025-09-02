@@ -8,7 +8,7 @@ const AddRoom = () => {
     const[newRoom, setNewRoom]=useState({
         photo:null,
         roomType:"",
-        roomPrice:""
+        roomPrice:0
     })
 
     const[imagePreview, setImagePreview] = useState("")
@@ -22,12 +22,12 @@ const AddRoom = () => {
         let value=e.target.value
         if(name === "roomPrice"){
             if(!isNaN(value)){
-                value.parseFloat(value)
+                value.parseInt(value,10);
             }else{
                 value=""
             }
         }
-        setNewRoom({...newRoom, [name]:value})
+        setNewRoom({...newRoom, [name]:value,})
     }
 
     //function that will handle image preview and selection
@@ -79,7 +79,7 @@ const AddRoom = () => {
                         <label htmlFor="roomPrice"
                         className='flex font-medium text-base items-start ml-2 pt-5'>Room Price</label>
                     <div className='mb-3 mt-2 space-x-3 block'>
-                            <input 
+                            <input
                             id='roomPrice' 
                             type="text" 
                             name='roomPrice'
