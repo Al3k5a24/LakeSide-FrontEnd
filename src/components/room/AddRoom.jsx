@@ -4,6 +4,13 @@ import RoomTypeSelector from '../common/RoomTypeSelector'
 
 const AddRoom = () => {
 
+    const [priceValue,setpriceValue]=useState("")
+
+    const handlePriceChange=(e)=>{
+        const value=e.target.value;
+        setpriceValue(value);
+    }
+
     //defining new room object
     const[newRoom, setNewRoom]=useState({
         photo:null,
@@ -44,7 +51,7 @@ const AddRoom = () => {
        e.preventDefault()
        try {
         const success=await addRoom(newRoom.photo,
-            newRoom.roomType,newRoom.roomPrice)
+            newRoom.roomType,priceValue)
 
             if(success!==undefined){
                 setSuccessMessage("A new room was created!")
@@ -71,7 +78,7 @@ const AddRoom = () => {
                     <div className='mb-3'>
                         <label htmlFor="roomType" className='flex font-medium flex-row text-base items-start ml-2'>Room Type</label>
                         <div className='block items-start mt-2 ml-3 '>
-                            <RoomTypeSelector handleRoomInputChange={handleRoomInputChange} 
+                            <RoomTypeSelector required handleRoomInputChange={handleRoomInputChange} 
                             newRoom={newRoom}/>
                         </div>
                     </div>
@@ -81,10 +88,11 @@ const AddRoom = () => {
                     <div className='mb-3 mt-2 space-x-3 block'>
                             <input
                             id='roomPrice' 
-                            type="text" 
+                            type="number" 
                             name='roomPrice'
-                            onChange={handleRoomInputChange}
                             required
+                            value={priceValue}
+                            onChange={handlePriceChange}
                             placeholder='Enter room price'
                             className='block rounded-md
                              bg-black/5 w-2xs ml-2.5 
