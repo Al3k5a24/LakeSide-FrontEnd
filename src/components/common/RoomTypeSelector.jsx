@@ -8,7 +8,6 @@ const RoomTypeSelector = ({handleRoomInputChange,newRoom}) => {
     const[newRoomType,setNewRoomType]=useState("")
 
     //if user wants to enter new room type
-
     useEffect(()=>{
         // data is from backend
         getRoomTypes().then((data)=>{

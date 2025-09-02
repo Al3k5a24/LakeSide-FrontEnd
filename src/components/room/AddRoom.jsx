@@ -57,7 +57,9 @@ const AddRoom = () => {
 
             if(success!==undefined){
                 setSuccessMessage("A new room was created!")
+               //refresh page after submit
                 window.location.reload();
+               
                 //create new empty object
                 setNewRoom({photo: null, roomType: "", roomPrice: ""})
                 setImagePreview("")
