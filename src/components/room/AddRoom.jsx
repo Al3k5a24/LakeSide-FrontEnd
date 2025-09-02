@@ -4,8 +4,10 @@ import RoomTypeSelector from '../common/RoomTypeSelector'
 
 const AddRoom = () => {
 
+    //roomPrice state to handle input 
     const [priceValue,setpriceValue]=useState("")
 
+    //get input
     const handlePriceChange=(e)=>{
         const value=e.target.value;
         setpriceValue(value);
@@ -55,7 +57,7 @@ const AddRoom = () => {
 
             if(success!==undefined){
                 setSuccessMessage("A new room was created!")
-                
+                window.location.reload();
                 //create new empty object
                 setNewRoom({photo: null, roomType: "", roomPrice: ""})
                 setImagePreview("")
