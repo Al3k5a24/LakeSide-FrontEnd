@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { addRoom } from '../../utils/ApiFunctions'
 import RoomTypeSelector from '../common/RoomTypeSelector'
+import { useRef } from 'react'
 
 const AddRoom = () => {
 
@@ -57,19 +58,21 @@ const AddRoom = () => {
 
             if(success!==undefined){
                 setSuccessMessage("A new room was created!")
-               //refresh page after submit
-                window.location.reload();
-               
                 //create new empty object
                 setNewRoom({photo: null, roomType: "", roomPrice: ""})
                 setImagePreview("")
                 setErrorMessage("")
+                setpriceValue("")
             }else{
                 setErrorMessage("Error has occured!")
             }
        } catch (error) {
         setErrorMessage(error.message)
        }
+    //    timeout to reload the page
+       setTimeout(()=>{
+        window.location.reload();
+       },1500)
     }
 
   return (
@@ -78,6 +81,21 @@ const AddRoom = () => {
         <div>
             <div className='bg-[#F3EFE6] items-center py-4 px-3 rounded-3xl inset-shadow-sm inset-shadow-gray-400 drop-shadow-xl/40 space-y-3'>
                 <h2 className='flex ml-2 pb-3 items-start font-semibold md:text-3xl sm:text-2xl'>Add a New Room</h2>
+
+                {/* //displays success message if there is any */}
+                {successMessage &&(
+                    <div className='bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-3'>
+                        {successMessage}
+                    </div>
+                )}
+
+                {/* //displays error message if there is any */}
+                {errorMessage &&(
+                    <div className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-3'>
+                        {errorMessage}
+                    </div>
+                )}
+
                 <form onSubmit={(handleSubmit)}>
                     <div className='mb-3'>
                         <label htmlFor="roomType" className='flex font-medium flex-row text-base items-start ml-2'>Room Type</label>
