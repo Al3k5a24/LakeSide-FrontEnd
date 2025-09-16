@@ -29,3 +29,13 @@ export async function getRoomTypes() {
        throw new Error("Could not fetch room types")
     }
 }
+
+//function to fetch data from backend which will be used to display all rooms
+export async function getAllRooms(){
+    try{
+        const result = await api.get("/rooms/all-rooms")
+        return result.data
+    }catch(error){
+        throw new Error("Error fetching rooms")
+    }
+}
