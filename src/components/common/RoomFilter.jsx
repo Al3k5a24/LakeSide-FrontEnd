@@ -32,7 +32,7 @@ const RoomFilter = (data,setFilteredData) => {
         <option value={""}>Select a room type</option>
         {roomTypes.map((type,index)=>(
             <option key={index} value={String(type)}>
-                {type}
+                {String(type)}
             </option>
         ))}
       </select>
