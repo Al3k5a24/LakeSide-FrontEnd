@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Col } from 'react-bootstrap'
-import RoomFilter from './RoomFilter.jsx'
-import RoomPaginator from './RoomPaginator.jsx'
+import RoomFilter from './../common/RoomFilter.jsx'
+import RoomPaginator from './../common/RoomPaginator.jsx'
 
 const ExistingRooms = () => {
      const[rooms,setRooms] =useState([])
@@ -58,16 +58,16 @@ const ExistingRooms = () => {
     return (
     <>
     {/* if rooms are not loaded,show loading message */}
-    {isLoading ? (
-        <p>Loading existing rooms...</p>
-    ): (
-      <section>
+    {/* {isLoading ? (
+        <p>Loading existing rooms...</p> */}
+    {/* ): ( */}
+      <section className='bg-amber-500 p-3 rounded'>
         <div>
             <h2>Existing rooms</h2>
         </div>
-        <Col md={6}>
+        {/* <Col md={6}>
         <RoomFilter data={rooms} setFilterData={setFilterRooms}/>
-        </Col>
+        </Col> */}
 
         <table>
             <thead>
@@ -96,12 +96,12 @@ const ExistingRooms = () => {
         </table>
 
         {/* Room paginator */}
-        <RoomPaginator currentPage={currentPage}
+        {/* <RoomPaginator currentPage={currentPage}
         totalPages={calculateTotalPages(filterRooms,roomsPerPage,rooms)}
         onPageChange={handlePaginationClick}
-        />
+        /> */}
       </section>  
-    )}
+    {/* )} */}
     </>
   )
 }
