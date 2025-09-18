@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { Col } from 'react-bootstrap'
-import RoomFilter from './../common/RoomFilter.jsx'
-import RoomPaginator from './../common/RoomPaginator.jsx'
+import RoomFilter from '../common/RoomFilter.jsx'
+import RoomPaginator from '../common/RoomPaginator.jsx'
+import { getAllRooms } from '../../utils/ApiFunctions.js'
+
+type Room = {
+    id: number;
+    roomType: string;
+    roomPrice: number;
+};
 
 const ExistingRooms = () => {
-     const[rooms,setRooms] =useState([])
+     const[rooms,setRooms] =useState<Room[]>([])
      const[currentPage,setCurrentPage]=useState(1)
      const[roomsPerPage]=useState(8)
      const[isLoading,setIsLoading]=useState(false)
-     const[filterRooms,setFilterRooms]=useState([])
+     const[filterRooms,setFilterRooms]=useState<Room[]>([])
      const[selectedRoomType,setSelectedRoomType]=useState("")
      const[successMessage,setSuccessMessage]=useState("")
      const[errorMessage,setErrorMessage]=useState("")
@@ -22,6 +29,7 @@ const ExistingRooms = () => {
         setIsLoading(true)
         try {
             const result=await getAllRooms()
+            console.log("Rooms API response:", result);
             setRooms(result)
             setIsLoading(false)
         } catch (error) {
@@ -34,8 +42,8 @@ const ExistingRooms = () => {
         if(selectedRoomType === ""){
             setFilterRooms(rooms)
         }else{
-            const filtered =
-            rooms.filter((room)=>room.roomType===selectedRoomType)
+            const filtered =  rooms.filter((room)=>room.roomType===selectedRoomType)
+            setFilterRooms(filtered)
         }
         setCurrentPage(1)
      },[rooms,selectedRoomType])
@@ -58,15 +66,15 @@ const ExistingRooms = () => {
     return (
     <>
     {/* if rooms are not loaded,show loading message */}
-     {isLoading ? (
+     {/* {isLoading ? (
         <p>Loading existing rooms...</p>
-     ): ( 
+     ): (  */}
       <section className='relative overflow-x-auto p-4 rounded-lg shadow-md'>
         <div>
             <h2>Existing rooms</h2>
         </div>
         <Col md={6}>
-        <RoomFilter data={rooms} setFilterData={setFilterRooms}/>
+        <RoomFilter data={rooms} setFilteredData={setFilterRooms}/>
         </Col>
 
         <table className='w-full text-sm text-gray-400'>
@@ -81,7 +89,7 @@ const ExistingRooms = () => {
 
             <tbody>
                 {currentRooms.map((room)=>(
-                    <tr key={room.id} className='border-b bg-gray-800 border-gray-700'>
+                    <tr key={room.id} className='bg-gray-800 border-gray-700'>
                         <td>{room.id}</td>
                         <td>{room.roomType}</td>
                         <td>{room.roomPrice}</td>
@@ -94,14 +102,13 @@ const ExistingRooms = () => {
                 ))}
             </tbody>
         </table>
-
-         Room paginator 
+         {/* Room paginator  */}
          <RoomPaginator currentPage={currentPage}
         totalPages={calculateTotalPages(filterRooms,roomsPerPage,rooms)}
         onPageChange={handlePaginationClick}
         /> 
       </section>  
-     )}
+     {/* )} */}
     </>
   )
 }

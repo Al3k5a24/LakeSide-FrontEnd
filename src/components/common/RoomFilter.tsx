@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const RoomFilter = (data,setFilteredData) => {
+const RoomFilter = ({data,setFilteredData}) => {
     const[filter,setFilter]=useState("")
 
     //function that will handle filtration
@@ -9,19 +9,18 @@ const RoomFilter = (data,setFilteredData) => {
         setFilter(selectedRoomType)
 
         //set to lower case for accurate matching
-        const filteredRooms = data.filter((room)=>
-        room.roomType.toLowerCase().includes(selectedRoomType.toLowerCase()))
+        const filteredRooms = data.filter((room)=>room.roomType.toLowerCase().includes(selectedRoomType.toLowerCase()))
         setFilteredData(filteredRooms)
     }
     
     //if nothing is selected, return all data and display it
     const clearFilter=()=>{
         setFilter("")
-        setFilteredData(data.data)
+        setFilteredData(data)
     }
 
     //array of unique room types from 
-    const roomTypes=["", ...new Set(data.data.map((room)=>room.roomType))]
+    const roomTypes=["", ...new Set((data || []).map((room)=>room.roomType))]
 
   return (
     <div>
