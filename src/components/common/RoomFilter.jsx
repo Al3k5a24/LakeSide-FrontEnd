@@ -5,7 +5,7 @@ const RoomFilter = (data,setFilteredData) => {
 
     //function that will handle filtration
     const handleSelectChange=(e)=>{
-        const selectedRoomType=e.target.
+        const selectedRoomType=e.target.value
         setFilter(selectedRoomType)
 
         //set to lower case for accurate matching
@@ -17,11 +17,11 @@ const RoomFilter = (data,setFilteredData) => {
     //if nothing is selected, return all data and display it
     const clearFilter=()=>{
         setFilter("")
-        setFilteredData(data)
+        setFilteredData(data.data)
     }
 
     //array of unique room types from 
-    const roomTypes=["", ...new Set(data.map((room)=>room.roomType))]
+    const roomTypes=["", ...new Set(data.data.map((room)=>room.roomType))]
 
   return (
     <div>

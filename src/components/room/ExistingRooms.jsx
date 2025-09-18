@@ -58,30 +58,30 @@ const ExistingRooms = () => {
     return (
     <>
     {/* if rooms are not loaded,show loading message */}
-    {/* {isLoading ? (
-        <p>Loading existing rooms...</p> */}
-    {/* ): ( */}
-      <section className='bg-amber-500 p-3 rounded'>
+     {isLoading ? (
+        <p>Loading existing rooms...</p>
+     ): ( 
+      <section className='relative overflow-x-auto p-4 rounded-lg shadow-md'>
         <div>
             <h2>Existing rooms</h2>
         </div>
-        {/* <Col md={6}>
+        <Col md={6}>
         <RoomFilter data={rooms} setFilterData={setFilterRooms}/>
-        </Col> */}
+        </Col>
 
-        <table>
-            <thead>
+        <table className='w-full text-sm text-gray-400'>
+            <thead className='w-full text-xs text-gray-400 bg-gray-700 uppercase '>
                 <tr>
-                    <th>ID</th>
-                    <th>Room Type</th>
-                    <th>Room Price</th>
-                    <th>Actions</th>
+                    <th scope='col' className='px-6 py-3'>ID</th>
+                    <th scope='col' className='px-6 py-3'>Room Type</th>
+                    <th scope='col' className='px-6 py-3'>Room Price</th>
+                    <th scope='col' className='px-6 py-3'>Actions</th>
                 </tr>
             </thead>
 
             <tbody>
                 {currentRooms.map((room)=>(
-                    <tr key={room.id}>
+                    <tr key={room.id} className='border-b bg-gray-800 border-gray-700'>
                         <td>{room.id}</td>
                         <td>{room.roomType}</td>
                         <td>{room.roomPrice}</td>
@@ -95,13 +95,13 @@ const ExistingRooms = () => {
             </tbody>
         </table>
 
-        {/* Room paginator */}
-        {/* <RoomPaginator currentPage={currentPage}
+         Room paginator 
+         <RoomPaginator currentPage={currentPage}
         totalPages={calculateTotalPages(filterRooms,roomsPerPage,rooms)}
         onPageChange={handlePaginationClick}
-        /> */}
+        /> 
       </section>  
-    {/* )} */}
+     )}
     </>
   )
 }
