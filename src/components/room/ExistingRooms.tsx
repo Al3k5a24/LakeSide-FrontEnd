@@ -72,12 +72,12 @@ const ExistingRooms = () => {
         <p>Loading existing rooms...</p>
      ): (  */}
       <section className='relative overflow-x-auto p-4 rounded-lg shadow-md'>
-        <div className='p-8 overflow-auto mt-16'>
+        <div className='p-3 overflow-auto flex flex-col items-baseline justify-between'>
             <h2 className='text-[32px] mb-4'>Existing rooms</h2>
-        </div>
         <Col md={6} className='mb-3'>
         <RoomFilter data={rooms} setFilteredData={setFilterRooms}/>
         </Col>
+        </div>
 
   <div className="relative overflow-auto">
     <div className="overflow-x-auto rounded-lg">
