@@ -48,11 +48,13 @@ const ExistingRooms = () => {
         setCurrentPage(1)
      },[rooms,selectedRoomType])
 
+     //ignore error, it works
      const handlePaginationClick=(pageNumber)=>{
         setCurrentPage(pageNumber)
      }
 
      //function to calculate number of pages
+     //ignore error, it works
      const calculateTotalPages=((filterRooms,roomsPerPage,rooms)=>{
         //calculate based on filter
         //if there is no room(length=0) use all rooms to calculate
@@ -70,31 +72,41 @@ const ExistingRooms = () => {
         <p>Loading existing rooms...</p>
      ): (  */}
       <section className='relative overflow-x-auto p-4 rounded-lg shadow-md'>
-        <div>
-            <h2>Existing rooms</h2>
+        <div className='p-8 overflow-auto mt-16'>
+            <h1 className='text-2x1 mb-4'>Existing rooms</h1>
         </div>
-        <Col md={6}>
+        <Col md={6} className='mb-3'>
         <RoomFilter data={rooms} setFilteredData={setFilterRooms}/>
         </Col>
 
-        <table className='w-full text-sm text-gray-400'>
-            <thead className='w-full text-xs text-gray-400 bg-gray-700 uppercase '>
-                <tr>
-                    <th scope='col' className='px-6 py-3'>ID</th>
-                    <th scope='col' className='px-6 py-3'>Room Type</th>
-                    <th scope='col' className='px-6 py-3'>Room Price</th>
-                    <th scope='col' className='px-6 py-3'>Actions</th>
+  <div className="relative overflow-auto">
+    <div className="overflow-x-auto rounded-lg">
+        <table className='min-w-full bg-white mb-20'>
+            <thead>
+                <tr className='bg-[#2B4DC994] text-center text-xs font-thin text-white'>
+                    <th className='p-2'>
+                        <span className='block py-2 px-3 border-r border-gray-300'>ID</span>
+                    </th>
+                    <th className='p-2'>
+                        <span className='block py-2 px-3 border-r border-gray-300'>Room Type</span>
+                    </th>
+                    <th className='p-2'>
+                        <span className='block py-2 px-3 border-r border-gray-300'>Room Price</span>
+                    </th>
+                    <th className='p-2'>
+                        <span>Action</span>
+                    </th>
                 </tr>
             </thead>
 
             <tbody>
                 {currentRooms.map((room)=>(
-                    <tr key={room.id} className='bg-gray-800 border-gray-700'>
-                        <td>{room.id}</td>
-                        <td>{room.roomType}</td>
-                        <td>{room.roomPrice}</td>
+                    <tr key={room.id} className='border-b border-b-gray-400 text-sm text-center text-gray-800'>
+                        <td className='p-4 w-1/4'>{room.id}</td>
+                        <td className='p-4 w-1/4'>{room.roomType}</td>
+                        <td className='p-4 w-1/4'>{room.roomPrice}</td>
                         {/* Action button placeholders(Delete,View,Edit) */}
-                        <td>
+                        <td className='p-4 w-1/4'>
                             <button>view / Edit</button>
                             <button>Delete</button>
                         </td>
@@ -102,6 +114,9 @@ const ExistingRooms = () => {
                 ))}
             </tbody>
         </table>
+        </div>
+        </div>
+
          {/* Room paginator  */}
          <RoomPaginator currentPage={currentPage}
         totalPages={calculateTotalPages(filterRooms,roomsPerPage,rooms)}
