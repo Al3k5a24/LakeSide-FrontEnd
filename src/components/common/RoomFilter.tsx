@@ -20,7 +20,7 @@ const RoomFilter = ({data,setFilteredData}) => {
     }
 
     //array of unique room types from 
-    const roomTypes=["", ...new Set((data || []).map((room)=>room.roomType))]
+    const roomTypes=[...new Set((data || []).map((room)=>room.roomType))]
 
   return (
     <div>

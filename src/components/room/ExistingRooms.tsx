@@ -73,7 +73,7 @@ const ExistingRooms = () => {
      ): (  */}
       <section className='relative overflow-x-auto p-4 rounded-lg shadow-md'>
         <div className='p-8 overflow-auto mt-16'>
-            <h1 className='text-2x1 mb-4'>Existing rooms</h1>
+            <h2 className='text-[32px] mb-4'>Existing rooms</h2>
         </div>
         <Col md={6} className='mb-3'>
         <RoomFilter data={rooms} setFilteredData={setFilterRooms}/>
@@ -102,13 +102,13 @@ const ExistingRooms = () => {
             <tbody>
                 {currentRooms.map((room)=>(
                     <tr key={room.id} className='border-b border-b-gray-400 text-sm text-center text-gray-800'>
-                        <td className='p-4 w-1/4'>{room.id}</td>
-                        <td className='p-4 w-1/4'>{room.roomType}</td>
-                        <td className='p-4 w-1/4'>{room.roomPrice}</td>
+                        <td className='p-3 w-1/4'>{room.id}</td>
+                        <td className='p-3 w-1/4'>{room.roomType}</td>
+                        <td className='p-3 w-1/4'>{room.roomPrice}</td>
                         {/* Action button placeholders(Delete,View,Edit) */}
-                        <td className='p-4 w-1/4'>
-                            <button>view / Edit</button>
-                            <button>Delete</button>
+                        <td className='relative p-4 justify-between space-x-2'>
+                            <button className='bg-blue-500 text-white px-3 py-1 rounded-md text-sm cursor-pointer'>View / Edit</button>
+                            <button className='bg-red-500 text-white px-3 py-1 rounded-md text-sm cursor-pointer'>Delete</button>
                         </td>
                     </tr>
                 ))}
