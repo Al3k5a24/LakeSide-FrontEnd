@@ -3,6 +3,7 @@ import { Col } from 'react-bootstrap'
 import RoomFilter from '../common/RoomFilter.jsx'
 import RoomPaginator from '../common/RoomPaginator.jsx'
 import { getAllRooms, deleteRoom } from '../../utils/ApiFunctions.js'
+import {FaTrashAlt} from 'react-icons/fa'
 
 type Room = {
     id: number;
@@ -53,7 +54,7 @@ const ExistingRooms = () => {
         setCurrentPage(pageNumber)
      }
 
-     const handleDeleteRooe=async(roomId)=>{
+     const handleDeleteRoom=async(roomId)=>{
         try {
             const result=await deleteRoom(roomId)
             if(result===""){
@@ -88,9 +89,9 @@ const ExistingRooms = () => {
     return (
     <>
     {/* if rooms are not loaded,show loading message */}
-     {/* {isLoading ? (
+      {isLoading ? (
         <p>Loading existing rooms...</p>
-     ): (  */}
+     ): ( 
       <section className='relative overflow-x-auto p-4 rounded-lg shadow-md'>
         <div className='p-3 overflow-auto flex flex-col items-baseline justify-between'>
             <h2 className='text-[32px] mb-4'>Existing rooms</h2>
@@ -126,10 +127,12 @@ const ExistingRooms = () => {
                         <td className='p-3 w-1/4'>{room.roomType}</td>
                         <td className='p-3 w-1/4'>{room.roomPrice}</td>
                         {/* Action button placeholders(Delete,View,Edit) */}
-                        <td className='relative p-4 justify-between space-x-2'>
+                        <td className='flex flex-row p-4 space-x-3 items-center'>
                             <button className='bg-blue-500 text-white px-3 py-1 rounded-md text-sm cursor-pointer'>View / Edit</button>
-                            <button className='bg-red-500 text-white px-3 py-1 rounded-md text-sm cursor-pointer'
-                            >Delete</button>
+                            <button className='bg-red-500 text-white px-7 py-2 
+                            rounded-md text-sm cursor-pointer'
+                            onClick={()=>handleDeleteRoom(room.id)}
+                            ><FaTrashAlt/></button>
                         </td>
                     </tr>
                 ))}
@@ -137,15 +140,15 @@ const ExistingRooms = () => {
         </table>
         </div>
         </div>
-
          {/* Room paginator  */}
          <RoomPaginator currentPage={currentPage}
         totalPages={calculateTotalPages(filterRooms,roomsPerPage,rooms)}
         onPageChange={handlePaginationClick}
         /> 
       </section>  
-     {/* )} */}
+      )} 
     </>
   )
 }
 
+export default ExistingRooms
