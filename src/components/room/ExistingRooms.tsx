@@ -3,7 +3,8 @@ import { Col } from 'react-bootstrap'
 import RoomFilter from '../common/RoomFilter.jsx'
 import RoomPaginator from '../common/RoomPaginator.jsx'
 import { getAllRooms, deleteRoom } from '../../utils/ApiFunctions.js'
-import {FaTrashAlt} from 'react-icons/fa'
+import { FaTrashAlt,FaEye, FaEdit } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 type Room = {
     id: number;
@@ -128,7 +129,13 @@ const ExistingRooms = () => {
                         <td className='p-3 w-1/4'>{room.roomPrice}</td>
                         {/* Action button placeholders(Delete,View,Edit) */}
                         <td className='flex flex-row p-4 space-x-3 items-center'>
-                            <button className='bg-blue-500 text-white px-3 py-1 rounded-md text-sm cursor-pointer'>View / Edit</button>
+                            {/* insert react-router to guide to view or edit room details */}
+                            <Link to={`/edit-room/${room.id}`} className='bg-blue-500
+                             text-white px-3 py-1 rounded-md 
+                             text-sm cursor-pointer'>
+                            <span><FaEye/></span>
+                            <span><FaEdit/></span>
+                            </Link>
                             <button className='bg-red-500 text-white px-7 py-2 
                             rounded-md text-sm cursor-pointer'
                             onClick={()=>handleDeleteRoom(room.id)}
