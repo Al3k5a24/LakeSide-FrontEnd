@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Col } from 'react-bootstrap'
 import RoomFilter from '../common/RoomFilter.jsx'
 import RoomPaginator from '../common/RoomPaginator.jsx'
-import { getAllRooms } from '../../utils/ApiFunctions.js'
+import { getAllRooms, deleteRoom } from '../../utils/ApiFunctions.js'
 
 type Room = {
     id: number;
@@ -51,6 +51,26 @@ const ExistingRooms = () => {
      //ignore error, it works
      const handlePaginationClick=(pageNumber)=>{
         setCurrentPage(pageNumber)
+     }
+
+     const handleDeleteRooe=async(roomId)=>{
+        try {
+            const result=await deleteRoom(roomId)
+            if(result===""){
+            setSuccessMessage(`Room No ${roomId} deleted successfully!`)
+            //refresh rooms
+            fetchRooms()
+        }else(
+            console.error(`Error deleting room:", ${result.message}`)
+        )
+        } catch (error) {
+            setErrorMessage(error.message)
+        }
+        //reset messages after 3 seconds
+        setTimeout(()=>{
+            setSuccessMessage("")
+            setErrorMessage("")
+        },3000)
      }
 
      //function to calculate number of pages
@@ -108,7 +128,8 @@ const ExistingRooms = () => {
                         {/* Action button placeholders(Delete,View,Edit) */}
                         <td className='relative p-4 justify-between space-x-2'>
                             <button className='bg-blue-500 text-white px-3 py-1 rounded-md text-sm cursor-pointer'>View / Edit</button>
-                            <button className='bg-red-500 text-white px-3 py-1 rounded-md text-sm cursor-pointer'>Delete</button>
+                            <button className='bg-red-500 text-white px-3 py-1 rounded-md text-sm cursor-pointer'
+                            >Delete</button>
                         </td>
                     </tr>
                 ))}
@@ -128,4 +149,3 @@ const ExistingRooms = () => {
   )
 }
 
-export default ExistingRooms

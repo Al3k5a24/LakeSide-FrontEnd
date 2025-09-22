@@ -46,6 +46,6 @@ export async function deleteRoom(roomId){
         const result = await api.delete(`/rooms/delete/room/${roomId}`)
         return result.data
     } catch (error) {
-        throw new Error("Could not delete room")
+        throw new Error(`Could not delete room ${room.message}`)
     }
 }
