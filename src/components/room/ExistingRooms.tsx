@@ -130,13 +130,13 @@ const ExistingRooms = () => {
                         {/* Action button placeholders(Delete,View,Edit) */}
                         <td className='flex flex-row p-4 space-x-3 items-center justify-center'>
                             {/* insert react-router to guide to view or edit room details */}
-                            <Link to={`/edit-room/${room.id}`} className='bg-blue-500
+                            <Link to={`/edit-room/${room.id}`} className='
                              text-white flex space-x-5 px-3 py-2 rounded-md 
-                             text-sm cursor-pointer'>
-                            <span><FaEye/></span>
-                            <span><FaEdit/></span>
+                             cursor-pointer'>
+                            <span className='bg-amber-500 rounded-md px-4 text-sm py-3'><FaEye/></span>
+                            <span className='bg-blue-500 rounded-md text-sm px-4 py-3'><FaEdit/></span>
                             </Link>
-                            <button className='bg-red-500 text-white px-7 py-2 
+                            <button className='bg-red-500 text-white space-x-5 px-5 py-3 
                             rounded-md text-sm cursor-pointer'
                             onClick={()=>handleDeleteRoom(room.id)}
                             ><FaTrashAlt/></button>
