@@ -128,10 +128,10 @@ const ExistingRooms = () => {
                         <td className='p-3 w-1/4'>{room.roomType}</td>
                         <td className='p-3 w-1/4'>{room.roomPrice}</td>
                         {/* Action button placeholders(Delete,View,Edit) */}
-                        <td className='flex flex-row p-4 space-x-3 items-center'>
+                        <td className='flex flex-row p-4 space-x-3 items-center justify-center'>
                             {/* insert react-router to guide to view or edit room details */}
                             <Link to={`/edit-room/${room.id}`} className='bg-blue-500
-                             text-white px-3 py-1 rounded-md 
+                             text-white flex space-x-5 px-3 py-2 rounded-md 
                              text-sm cursor-pointer'>
                             <span><FaEye/></span>
                             <span><FaEdit/></span>
