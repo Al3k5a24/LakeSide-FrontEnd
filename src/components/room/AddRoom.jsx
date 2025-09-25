@@ -157,8 +157,6 @@ const AddRoom = () => {
             </div>
         </div>
     </section>
-    
-    
     </>
   )
 }
