@@ -9,18 +9,16 @@ function App() {
 
   return (    
     <>
-    {/* //define routes for different components */}
+    {/* define routes for different components */}
     <main>
       <Router>
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/edit/edit-room/:roomId' element={<EditRoom/>}/>
+          <Route path='/existingRooms' element={<ExistingRooms/>}/>
         </Routes>
       </Router>
     </main>
-
-      <AddRoom/>
-      <ExistingRooms/>
     </>
   )
 }
