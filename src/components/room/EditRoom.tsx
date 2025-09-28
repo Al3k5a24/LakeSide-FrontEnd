@@ -12,6 +12,7 @@ const EditRoom = () => {
       const handlePriceChange=(e)=>{
           const value=e.target.value;
           setpriceValue(value);
+          setRoom({...Room, roomPrice: value});
       }
   
       //defining new room object
@@ -33,7 +34,6 @@ const EditRoom = () => {
     const handleImageChange=(e)=>{
         const selectedImage= e.target.files[0]
         setRoom({...Room, photo: selectedImage})
-
         //link to preview image
         setImagePreview(URL.createObjectURL(selectedImage));
     }
@@ -41,17 +41,22 @@ const EditRoom = () => {
     //dynamic update state of object newRoom
     //checks if roomPrice is number
     const handleRoomInputChange = (e) =>{
-        const name = e.target.name
-        let value=e.target.value
-        if(name === "roomPrice"){
-            if(!isNaN(value)){
-                value.parseInt(value,10);
-            }else{
-                value=""
-            }
-        }
-        setRoom({...Room, [name]:value,})
+        const{name,value}=e.target;
+        setRoom({...Room,[name]:value})
     }
+
+    useEffect(()=>{ 
+        const fetchRoomData=async()=>{
+            try {
+                const roomData=await getRoomById(roomId)
+                setRoom(roomData)
+                setImagePreview(roomData.photo)
+            } catch (error) {
+                setErrorMessage("Error fetching room data")
+            }
+    }
+    fetchRoomData()
+  },[roomId])
 
     //function that will handle submit of update
         const handleSubmit=async(e)=>{
@@ -76,18 +81,6 @@ const EditRoom = () => {
            },1500)
         }
 
-    useEffect(()=>{ 
-        const fetchRoomData=async()=>{
-            try {
-                const roomData=await getRoomById(roomId)
-                setRoom(roomData)
-                setImagePreview(roomData.photo)
-            } catch (error) {
-                setErrorMessage("Error fetching room data")
-            }
-    }
-    fetchRoomData()
-  },[roomId])
   return (
     <>
     <section className='block my-21 max-w-2xl mx-auto'>
@@ -113,7 +106,7 @@ const EditRoom = () => {
                     <div className='mb-3'>
                         <label htmlFor="roomType" className='flex font-medium flex-row text-base items-start ml-2'>Room Type</label>
                         <div className='block items-start mt-2 ml-3 '>
-                            <RoomTypeSelector required handleRoomInputChange={handleRoomInputChange} 
+                            <RoomTypeSelector handleRoomInputChange={handleRoomInputChange} 
                             newRoom={Room}/>
                         </div>
                     </div>
@@ -126,7 +119,7 @@ const EditRoom = () => {
                             type="number" 
                             name='roomPrice'
                             required
-                            value={priceValue}
+                            value={Room.roomPrice}
                             onChange={handlePriceChange}
                             placeholder='Enter room price'
                             className='block rounded-md
