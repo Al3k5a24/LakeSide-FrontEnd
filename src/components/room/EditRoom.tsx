@@ -7,6 +7,13 @@ const EditRoom = () => {
 
       //roomPrice state to handle input 
       const [priceValue,setpriceValue]=useState("")
+      
+        //defining new room object
+      const[Room, setRoom]=useState({
+          photo:null,
+          roomType:"",
+          roomPrice:0
+      })
   
       //get input
       const handlePriceChange=(e)=>{
@@ -15,13 +22,6 @@ const EditRoom = () => {
           setRoom({...Room, roomPrice: value});
       }
   
-      //defining new room object
-      const[Room, setRoom]=useState({
-          photo:null,
-          roomType:"",
-          roomPrice:0
-      })
-  
       const[imagePreview, setImagePreview] = useState("")
       const[successMessage,setSuccessMessage]=useState("")
       const[errorMessage,setErrorMessage]=useState("")
@@ -29,13 +29,10 @@ const EditRoom = () => {
       //get roomId from URL so we can fetch the room data and update
       const {roomId}=useParams();
 
-
     //function that will handle image preview and selection
     const handleImageChange=(e)=>{
         const selectedImage= e.target.files[0]
         setRoom({...Room, photo: selectedImage})
-        //link to preview image
-        setImagePreview(URL.createObjectURL(selectedImage));
     }
 
     //dynamic update state of object newRoom
@@ -51,6 +48,27 @@ const EditRoom = () => {
                 const roomData=await getRoomById(roomId)
                 setRoom(roomData)
                 setImagePreview(roomData.photo)
+                setpriceValue(roomData.roomPrice)
+                
+            // If the photo is a binary data, convert it to a URL for preview
+            // deepseek
+            if (roomData.photo) {
+            let blob;
+            if (roomData.photo instanceof Blob) {
+                // Ako je već Blob
+                blob = roomData.photo;
+            } else if (typeof roomData.photo === 'string') {
+                // Ako je base64 string
+                const response = await fetch(`data:image/jpeg;base64,${roomData.photo}`);
+                blob = await response.blob();
+            } else {
+                console.error('Unknown photo format:', typeof roomData.photo);
+                return;
+            }
+            const fileURL = URL.createObjectURL(blob);
+            setImagePreview(fileURL);
+            console.log(fileURL);
+        }
             } catch (error) {
                 setErrorMessage("Error fetching room data")
             }
@@ -107,7 +125,7 @@ const EditRoom = () => {
                         <label htmlFor="roomType" className='flex font-medium flex-row text-base items-start ml-2'>Room Type</label>
                         <div className='block items-start mt-2 ml-3 '>
                             <RoomTypeSelector handleRoomInputChange={handleRoomInputChange} 
-                            newRoom={Room}/>
+                            newRoom={Room} value={Room.roomType}/>
                         </div>
                     </div>
 

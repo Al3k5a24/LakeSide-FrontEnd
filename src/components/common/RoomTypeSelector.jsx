@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { getRoomTypes } from '../../utils/ApiFunctions'
 
-const RoomTypeSelector = ({handleRoomInputChange,newRoom}) => {
+const RoomTypeSelector = ({handleRoomInputChange,newRoom,value}) => {
 
     const[roomTypes,setRoomTypes]=useState([""])
     const[showNewRoomTypeInput,setShowNewRoomTypeInput]=useState(false)
     const[newRoomType,setNewRoomType]=useState("")
+    const selectedValue = value || newRoom?.roomType || "";
 
     //if user wants to enter new room type
     useEffect(()=>{
@@ -36,7 +37,7 @@ const RoomTypeSelector = ({handleRoomInputChange,newRoom}) => {
           pr-12 pl-3 text-base outline-1 
           outline-offset-2 text-gray-500  outline-gray-300 focus:outline-offset-2
           focus:outline-2'
-          id="roomType" name="roomType" value={newRoom.roomTypes}
+          id="roomType" name="roomType" value={selectedValue}
           onChange={(e)=>{
             if(e.target.value==="Add New"){
               setShowNewRoomTypeInput(true);
