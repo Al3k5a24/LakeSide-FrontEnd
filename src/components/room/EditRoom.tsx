@@ -7,6 +7,10 @@ const EditRoom = () => {
 
       //roomPrice state to handle input 
       const [priceValue,setpriceValue]=useState("")
+      const updatedRoom={
+          roomType:"",
+          roomPrice:0
+      }
       
         //defining new room object
       const[Room, setRoom]=useState({
@@ -27,7 +31,7 @@ const EditRoom = () => {
       const[errorMessage,setErrorMessage]=useState("")
       
       //get roomId from URL so we can fetch the room data and update
-      const {roomId}=useParams();
+      const { roomId } = useParams();
 
     //function that will handle image preview and selection
     const handleImageChange=(e)=>{
@@ -55,10 +59,10 @@ const EditRoom = () => {
             if (roomData.photo) {
             let blob;
             if (roomData.photo instanceof Blob) {
-                // Ako je već Blob
+                // If picture is already Blob
                 blob = roomData.photo;
             } else if (typeof roomData.photo === 'string') {
-                // Ako je base64 string
+                // If picture is base64 string
                 const response = await fetch(`data:image/jpeg;base64,${roomData.photo}`);
                 blob = await response.blob();
             } else {
@@ -80,12 +84,15 @@ const EditRoom = () => {
         const handleSubmit=async(e)=>{
            e.preventDefault()
            try {
-            const response=await updateRoom(roomId,Room)
+            Room.roomPrice=parseFloat(priceValue)
+            Room.roomType=Room.roomType
+            const formData = new FormData();
+            formData.append('roomType', Room.roomType);
+            setRoom(Room)
+            console.log(Room)
+            const response=await updateRoom(roomId,formData)
                 if(response.status===200){
                     setSuccessMessage("Room was successfully updated!")
-                    const updatedRoom=await getRoomById(roomId)
-                    setRoom(updatedRoom)
-                    setImagePreview(updatedRoom.photo)
                     setErrorMessage("")
                 }else{
                     setErrorMessage("Error has occured!")
@@ -94,9 +101,9 @@ const EditRoom = () => {
             setErrorMessage(error.message)
            }
         //    timeout to reload the page
-           setTimeout(()=>{
-            window.location.reload();
-           },1500)
+        //    setTimeout(()=>{
+            // window.location.reload();
+        //    },1500)
         }
 
   return (
@@ -136,7 +143,6 @@ const EditRoom = () => {
                             id='roomPrice' 
                             type="number" 
                             name='roomPrice'
-                            required
                             value={Room.roomPrice}
                             onChange={handlePriceChange}
                             placeholder='Enter room price'
@@ -154,7 +160,6 @@ const EditRoom = () => {
                         id='roomPhoto'
                         name='roomPhoto'
                         accept='image/*'
-                        required 
                         onChange={handleImageChange}
                         className='grid m-2'/>
 
@@ -176,7 +181,7 @@ const EditRoom = () => {
                             dark:bg-blue-600
                              dark:hover:bg-blue-700
                               dark:focus:ring-blue-800'
-                              >Submit</button>
+                              onClick={handleSubmit}>Submit</button>
                 </form>
             </div>
         </div>
