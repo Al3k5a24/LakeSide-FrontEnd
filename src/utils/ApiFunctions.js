@@ -58,7 +58,7 @@ export async function updateRoom(roomId, roomData){
     if (roomData.photo) {
     formData.append("photo", roomData.photo);}
 
-    const response=await api.put(`/rooms/update/room/${roomId}`)
+    const response=await api.put(`/rooms/update/room/${roomId}`, formData)
     return response
 }
 

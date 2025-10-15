@@ -24,6 +24,13 @@ const RoomTypeSelector = ({handleRoomInputChange,newRoom,value}) => {
     const handleAddnewRoomType=()=>{
       if(newRoomType!== ""){
         setRoomTypes([...roomTypes,newRoomType])
+        // Update the parent component's room state with the new room type
+        handleRoomInputChange({
+          target: {
+            name: 'roomType',
+            value: newRoomType
+          }
+        });
         setNewRoomType("");
         setShowNewRoomTypeInput(false);
       }

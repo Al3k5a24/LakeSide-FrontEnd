@@ -7,10 +7,6 @@ const EditRoom = () => {
 
       //roomPrice state to handle input 
       const [priceValue,setpriceValue]=useState("")
-      const updatedRoom={
-          roomType:"",
-          roomPrice:0
-      }
       
         //defining new room object
       const[Room, setRoom]=useState({
@@ -37,6 +33,7 @@ const EditRoom = () => {
     const handleImageChange=(e)=>{
         const selectedImage= e.target.files[0]
         setRoom({...Room, photo: selectedImage})
+        setImagePreview(URL.createObjectURL(selectedImage))
     }
 
     //dynamic update state of object newRoom
@@ -44,6 +41,7 @@ const EditRoom = () => {
     const handleRoomInputChange = (e) =>{
         const{name,value}=e.target;
         setRoom({...Room,[name]:value})
+        
     }
 
     useEffect(()=>{ 
@@ -57,12 +55,17 @@ const EditRoom = () => {
             // If the photo is a binary data, convert it to a URL for preview
             // deepseek
             if (roomData.photo) {
-            let blob;
-            if (roomData.photo instanceof Blob) {
-                // If picture is already Blob
+            let blob;   
+            
+            if (Array.isArray(roomData.photo)) {
+                // Ako je byte array
+                const uint8Array = new Uint8Array(roomData.photo);
+                blob = new Blob([uint8Array], { type: 'image/jpeg' });
+            } else if (roomData.photo instanceof Blob) {
+                // Ako je već Blob
                 blob = roomData.photo;
             } else if (typeof roomData.photo === 'string') {
-                // If picture is base64 string
+                // Ako je base64 string
                 const response = await fetch(`data:image/jpeg;base64,${roomData.photo}`);
                 blob = await response.blob();
             } else {
@@ -73,38 +76,36 @@ const EditRoom = () => {
             setImagePreview(fileURL);
             console.log(fileURL);
         }
-            } catch (error) {
-                setErrorMessage("Error fetching room data")
+        }
+            catch (error) {
+                console.error("Error fetching room data:", error)
             }
     }
     fetchRoomData()
   },[roomId])
 
     //function that will handle submit of update
-        const handleSubmit=async(e)=>{
-           e.preventDefault()
-           try {
-            Room.roomPrice=parseFloat(priceValue)
-            Room.roomType=Room.roomType
-            const formData = new FormData();
-            formData.append('roomType', Room.roomType);
-            setRoom(Room)
-            console.log(Room)
-            const response=await updateRoom(roomId,formData)
-                if(response.status===200){
-                    setSuccessMessage("Room was successfully updated!")
-                    setErrorMessage("")
-                }else{
-                    setErrorMessage("Error has occured!")
-                }
-           } catch (error) {
-            setErrorMessage(error.message)
-           }
+    const handleSubmit=async(e)=>{
+        e.preventDefault()
+        try {
+            const response=await updateRoom(roomId,Room)
+            console.log("Update response:", response)
+            if(response.status===200){
+                setSuccessMessage("Room updated successfully!")
+                setErrorMessage("")
+            }else{
+                setErrorMessage("Failed to update room. Please try again.")
+                setSuccessMessage("")
+            }
+        }catch (error) {
+            console.error("Error updating room:", error)
+            setErrorMessage("Failed to update room. Please try again.")
+        }
+    }
         //    timeout to reload the page
         //    setTimeout(()=>{
             // window.location.reload();
         //    },1500)
-        }
 
   return (
     <>
@@ -171,17 +172,17 @@ const EditRoom = () => {
                         )}
                         </div>
                     </div>
-                        <button className='
+                    {/* type="submit" for sending data to backend */}
+                        <button type="submit" className='
                         px-7 py-2.5 text-sm 
                         font-medium text-white
-                         bg-blue-700 hover:bg-blue-800
-                          focus:ring-4 focus:outline-none
-                           focus:ring-blue-300 
-                           rounded-lg text-
-                            dark:bg-blue-600
-                             dark:hover:bg-blue-700
-                              dark:focus:ring-blue-800'
-                              onClick={handleSubmit}>Submit</button>
+                        bg-blue-700 hover:bg-blue-800
+                        focus:ring-4 focus:outline-none
+                        focus:ring-blue-300 
+                        rounded-lg text-
+                        dark:bg-blue-600
+                        dark:hover:bg-blue-700
+                        dark:focus:ring-blue-800'>Submit</button>
                 </form>
             </div>
         </div>
@@ -189,5 +190,4 @@ const EditRoom = () => {
     </>
   )
 }
-
 export default EditRoom
