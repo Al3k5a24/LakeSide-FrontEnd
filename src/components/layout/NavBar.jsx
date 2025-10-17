@@ -34,6 +34,20 @@ const NavBar = () => {
 
                 <li>
                 <a></a>
+
+                <ul>
+                    <li>
+                        <Link>Log in</Link>
+                    </li>
+
+                    <li>
+                        <Link>Profile</Link>
+                    </li>
+
+                    <li>
+                        <Link>Log out</Link>
+                    </li>
+                </ul>
                 </li>
             </ul>
         </div>

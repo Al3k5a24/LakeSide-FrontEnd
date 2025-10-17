@@ -4,7 +4,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 const Footer = () => {
 let today=new Date();
   return (
-    <Footer>
+    <footer>
       <Container>
         <Row>
             <Col>
@@ -12,7 +12,7 @@ let today=new Date();
             </Col>
         </Row>
       </Container>
-    </Footer>
+    </footer>
   )
 }
 
