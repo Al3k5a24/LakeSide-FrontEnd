@@ -8,7 +8,7 @@ let today=new Date();
       <Container>
         <Row>
             <Col>
-            <p>&copy; {today.getFullYear()} lakeSide Hotel</p>
+            <p> &copy; {today.getFullYear()} lakeSide Hotel</p>
             </Col>
         </Row>
       </Container>

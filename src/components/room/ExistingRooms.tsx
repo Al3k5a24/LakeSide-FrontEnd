@@ -100,7 +100,7 @@ const ExistingRooms = () => {
                 <Col md={6}>
                 <RoomFilter data={rooms} setFilteredData={setFilterRooms} />
             </Col>
-            <Col md={6} className='mt-3'>
+            <Col md={6} className='mt-3.5'>
                 <Link
                     to={"/add/new-room"}
                     className="px-4 py-3 bg-blue-500 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md whitespace-nowrap transition duration-200">
