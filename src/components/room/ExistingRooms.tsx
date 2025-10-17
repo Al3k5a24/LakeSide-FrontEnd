@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Col } from 'react-bootstrap'
-import RoomFilter from '../common/RoomFilter.jsx'
+import { Col, Row } from 'react-bootstrap'
+import RoomFilter from '../common/RoomFilter.js'
 import RoomPaginator from '../common/RoomPaginator.jsx'
 import { getAllRooms, deleteRoom } from '../../utils/ApiFunctions.js'
 import { FaTrashAlt,FaEye, FaEdit } from 'react-icons/fa'
@@ -88,74 +88,102 @@ const ExistingRooms = () => {
     const indexOfFirstRoom=indexOfLastRoom - roomsPerPage
     const currentRooms=filterRooms.slice(indexOfFirstRoom,indexOfLastRoom)
     return (
-    <>
-    {/* if rooms are not loaded,show loading message */}
-      {isLoading ? (
-        <p>Loading existing rooms...</p>
-     ): ( 
-      <section className='relative overflow-x-auto p-4 rounded-lg shadow-md'>
-        <div className='p-3 overflow-auto flex flex-col items-baseline justify-between'>
-            <h2 className='text-[32px] mb-4'>Existing rooms</h2>
-        <Col md={6} className='mb-3'>
-        <RoomFilter data={rooms} setFilteredData={setFilterRooms}/>
-        </Col>
-        </div>
+      <>
+        {/* if rooms are not loaded,show loading message */}
+        {isLoading ? (
+          <p>Loading existing rooms...</p>
+        ) : (
+          <section className="relative overflow-x-auto p-4 rounded-lg shadow-md">
+            <div className="p-3 overflow-auto flex flex-col items-baseline justify-end">
+              <h2 className="text-[32px] mb-4">Existing rooms</h2>
+            <Row className='flex flex-row justify-between w-full p-1'>
+                <Col md={6}>
+                <RoomFilter data={rooms} setFilteredData={setFilterRooms} />
+            </Col>
+            <Col md={6} className='mt-3'>
+                <Link
+                    to={"/add/new-room"}
+                    className="px-4 py-3 bg-blue-500 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md whitespace-nowrap transition duration-200">
+                    Add a new room
+                </Link>
+            </Col>
+            </Row>
+            </div>
 
-  <div className="relative overflow-auto">
-    <div className="overflow-x-auto rounded-lg">
-        <table className='min-w-full bg-white mb-20'>
-            <thead>
-                <tr className='bg-[#2B4DC994] text-center text-xs font-thin text-white'>
-                    <th className='p-2'>
-                        <span className='block py-2 px-3 border-r border-gray-300'>ID</span>
-                    </th>
-                    <th className='p-2'>
-                        <span className='block py-2 px-3 border-r border-gray-300'>Room Type</span>
-                    </th>
-                    <th className='p-2'>
-                        <span className='block py-2 px-3 border-r border-gray-300'>Room Price</span>
-                    </th>
-                    <th className='p-2'>
+            <div className="relative overflow-auto">
+              <div className="overflow-x-auto rounded-lg">
+                <table className="min-w-full bg-white mb-20">
+                  <thead>
+                    <tr className="bg-[#2B4DC994] text-center text-xs font-thin text-white">
+                      <th className="p-2">
+                        <span className="block py-2 px-3 border-r border-gray-300">
+                          ID
+                        </span>
+                      </th>
+                      <th className="p-2">
+                        <span className="block py-2 px-3 border-r border-gray-300">
+                          Room Type
+                        </span>
+                      </th>
+                      <th className="p-2">
+                        <span className="block py-2 px-3 border-r border-gray-300">
+                          Room Price
+                        </span>
+                      </th>
+                      <th className="p-2">
                         <span>Action</span>
-                    </th>
-                </tr>
-            </thead>
-
-            <tbody>
-                {currentRooms.map((room)=>(
-                    <tr key={room.id} className='border-b border-b-gray-400 text-sm text-center text-gray-800'>
-                        <td className='p-3 w-1/4'>{room.id}</td>
-                        <td className='p-3 w-1/4'>{room.roomType}</td>
-                        <td className='p-3 w-1/4'>{room.roomPrice}</td>
-                        {/* Action button placeholders(Delete,View,Edit) */}
-                        <td className='flex flex-row p-4 space-x-3 items-center justify-center'>
-                            {/* insert react-router to guide to view or edit room details */}
-                            <Link to={`/edit-room/${room.id}`} className='
-                             text-white flex space-x-5 px-3 py-2 rounded-md 
-                             cursor-pointer'>
-                            <span className='bg-amber-500 rounded-md px-4 text-sm py-3'><FaEye/></span>
-                            <span className='bg-blue-500 rounded-md text-sm px-4 py-3'><FaEdit/></span>
-                            </Link>
-                            <button className='bg-red-500 text-white space-x-5 px-5 py-3 
-                            rounded-md text-sm cursor-pointer'
-                            onClick={()=>handleDeleteRoom(room.id)}
-                            ><FaTrashAlt/></button>
-                        </td>
+                      </th>
                     </tr>
-                ))}
-            </tbody>
-        </table>
-        </div>
-        </div>
-         {/* Room paginator  */}
-         <RoomPaginator currentPage={currentPage}
-        totalPages={calculateTotalPages(filterRooms,roomsPerPage,rooms)}
-        onPageChange={handlePaginationClick}
-        /> 
-      </section>  
-      )} 
-    </>
-  )
+                  </thead>
+
+                  <tbody>
+                    {currentRooms.map((room) => (
+                      <tr
+                        key={room.id}
+                        className="border-b border-b-gray-400 text-sm text-center text-gray-800"
+                      >
+                        <td className="p-3 w-1/4">{room.id}</td>
+                        <td className="p-3 w-1/4">{room.roomType}</td>
+                        <td className="p-3 w-1/4">{room.roomPrice}</td>
+                        {/* Action button placeholders(Delete,View,Edit) */}
+                        <td className="flex flex-row p-4 space-x-3 items-center justify-center">
+                          {/* insert react-router to guide to view or edit room details */}
+                          <Link
+                            to={`/edit-room/${room.id}`}
+                            className="
+                             text-white flex space-x-5 px-3 py-2 rounded-md 
+                             cursor-pointer">
+                            <span className="bg-amber-500 rounded-md px-4 text-sm py-3">
+                              <FaEye />
+                            </span>
+                            <span className="bg-blue-500 rounded-md text-sm px-4 py-3">
+                              <FaEdit />
+                            </span>
+                          </Link>
+                          <button
+                            className="bg-red-500 text-white space-x-5 px-5 py-3 
+                            rounded-md text-sm cursor-pointer"
+                            onClick={() => handleDeleteRoom(room.id)}
+                          >
+                            <FaTrashAlt />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            {/* Room paginator  */}
+            <RoomPaginator
+              currentPage={currentPage}
+              totalPages={calculateTotalPages(filterRooms, roomsPerPage, rooms)}
+              onPageChange={handlePaginationClick}
+            />
+          </section>
+        )}
+      </>
+    );
 }
 
 export default ExistingRooms

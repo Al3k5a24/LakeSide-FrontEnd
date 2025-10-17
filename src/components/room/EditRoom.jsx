@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getRoomById, updateRoom } from '../../utils/ApiFunctions';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import RoomTypeSelector from '../common/RoomTypeSelector';
 
 const EditRoom = () => {
@@ -183,6 +183,20 @@ const EditRoom = () => {
                         dark:bg-blue-600
                         dark:hover:bg-blue-700
                         dark:focus:ring-blue-800'>Submit</button>
+
+                        <Link
+                to={"/existingRooms"}
+                className="px-7 py-3 text-sm ml-3
+                        font-medium text-white
+                         bg-blue-700 hover:bg-blue-800
+                          focus:ring-4 focus:outline-none
+                           focus:ring-blue-300 
+                           rounded-lg text-
+                            dark:bg-blue-600
+                             dark:hover:bg-blue-700
+                              dark:focus:ring-blue-800">
+                View all rooms
+              </Link>
                 </form>
             </div>
         </div>

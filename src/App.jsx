@@ -1,7 +1,7 @@
 import './App.css'
 import AddRoom from './components/room/AddRoom.jsx'
 import Home from './components/home/Home.jsx'
-import ExistingRooms from './components/room/ExistingRooms.jsx'
+import ExistingRooms from './components/room/ExistingRooms.tsx'
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom'
 import EditRoom from './components/room/EditRoom.jsx'
 
