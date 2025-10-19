@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 const NavBar = () => {
+
+  const [showAccount, setShowAccount] = useState(false);
+
+  const handleAccountClick = () => {
+    setShowAccount(!showAccount); //true
+  }
+
   return (
   <nav className="relative flex flex-wrap items-center justify-between px-6 mb-4 bg-white shadow-md rounded-b-lg">
   {/* Logo */}
@@ -13,12 +20,12 @@ const NavBar = () => {
     </Link>
   </div>
 
-  {/* Placeholder for future mobile menu button */}
+  {/* Placeholder for future mobile menu button
   <button className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors">
     <span className="block w-6 h-0.5 bg-gray-700 mb-1"></span>
     <span className="block w-6 h-0.5 bg-gray-700 mb-1"></span>
     <span className="block w-4 h-0.5 bg-gray-700"></span>
-  </button>
+  </button> */}
 
   {/* Navigation Links */}
   <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto mt-4 lg:mt-0 space-y-3 lg:space-y-0 lg:space-x-8 text-lg font-medium">
