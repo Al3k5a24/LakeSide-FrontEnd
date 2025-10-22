@@ -33,7 +33,7 @@ const RoomFilter = ({data,setFilteredData}) => {
       <select
         value={filter}
         onChange={handleSelectChange}
-        className="p-2 flex-1 rounded-lg border border-gray-400 bg-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        className="p-2 flex-1 rounded-lg border border-gray-400 bg-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500"
       >
         <option value={""}>Select a room type</option>
         {roomTypes.map((type, index) => (
@@ -46,7 +46,7 @@ const RoomFilter = ({data,setFilteredData}) => {
       <button
         type="button"
         onClick={clearFilter}
-        className="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md whitespace-nowrap transition duration-200 "
+        className="px-4 py-2 bg-red-500 hover:bg-red-700 text-white font-medium rounded-lg shadow-md whitespace-nowrap transition duration-200 "
       >
         Clear Filter
       </button>

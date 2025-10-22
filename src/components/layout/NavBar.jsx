@@ -10,7 +10,8 @@ const NavBar = () => {
   }
 
   return (
-  <nav className="relative flex flex-wrap items-center justify-between px-6 mb-4 bg-white shadow-md rounded-b-lg">
+<nav className="relative flex flex-col md:flex-row w-full items-center justify-between px-6 py-4 mb-5 bg-[#F3EFE6] rounded-b-4xl 
+               shadow-[0_-4px_16px_-4px_rgba(0,0,0,0.1),0_8px_24px_-6px_rgba(0,0,0,0.35)]">
   {/* Logo */}
   <div className="flex items-center flex-shrink-0 text-black mr-6">
     <Link to="/" className="flex items-center gap-2">
@@ -30,7 +31,7 @@ const NavBar = () => {
   {/* Navigation Links */}
   <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto mt-4 lg:mt-0 space-y-3 lg:space-y-0 lg:space-x-8 text-lg font-medium">
     <NavLink
-      to="/rooms"
+      to="/browse-rooms"
       className="block text-gray-700 hover:text-red-500 transition-colors"
     >
       Browse all Rooms
