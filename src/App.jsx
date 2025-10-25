@@ -6,9 +6,8 @@ import { BrowserRouter as Router,Routes,Route } from 'react-router-dom'
 import EditRoom from './components/room/EditRoom.jsx'
 import NavBar from './components/layout/NavBar.jsx'
 import Footer from './components/layout/Footer.jsx'
-import Room from './components/room/Room.jsx'
-import RoomCard from './components/room/RoomCard.jsx'
 import RoomListing from './components/room/RoomListing.jsx'
+import BookingRoomPage from './components/room/BookingRoomPage.jsx'
 
 function App() {
 
@@ -24,6 +23,7 @@ function App() {
           <Route path='/existingRooms' element={<ExistingRooms/>}/>
           <Route path='/add/new-room' element={<AddRoom/>}/>
           <Route path='/browse-rooms' element={<RoomListing/>}/>
+          <Route path='/browse-rooms/booking/:roomId' element={<BookingRoomPage/>}/>
         </Routes>
         <Footer/>
       </Router>

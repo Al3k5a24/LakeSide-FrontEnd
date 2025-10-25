@@ -23,8 +23,8 @@ const RoomCard = ({ room }) => {
             <Card.Title className="text-2xl font-bold text-gray-900">
               {room.roomType}
             </Card.Title>
-            <Card.Title className="text-xl text-red-600 font-semibold">
-              ${room.roomPrice} / night
+            <Card.Title className="text-xl text-red-500 font-semibold">
+              $ {room.roomPrice}<span className="text-black"> / night</span>
             </Card.Title>
             <Card.Text className="text-gray-600 text-center max-w-md">
               Some room information should be displayed here

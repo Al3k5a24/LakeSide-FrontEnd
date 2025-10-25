@@ -41,7 +41,6 @@ const EditRoom = () => {
     const handleRoomInputChange = (e) =>{
         const{name,value}=e.target;
         setRoom({...Room,[name]:value})
-        
     }
 
     useEffect(()=>{ 
@@ -103,9 +102,9 @@ const EditRoom = () => {
         }
     }
         //    timeout to reload the page
-        //    setTimeout(()=>{
-            // window.location.reload();
-        //    },1500)
+           setTimeout(()=>{
+            window.location.reload();
+           },1500)
 
   return (
     <>
