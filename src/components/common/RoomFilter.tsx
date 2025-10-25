@@ -46,8 +46,7 @@ const RoomFilter = ({data,setFilteredData}) => {
       <button
         type="button"
         onClick={clearFilter}
-        className="px-4 py-2 bg-red-500 hover:bg-red-700 text-white font-medium rounded-lg shadow-md whitespace-nowrap transition duration-200 "
-      >
+        className="px-4 py-2 bg-red-500 hover:bg-red-700 text-white font-medium rounded-lg shadow-md whitespace-nowrap transition duration-200">
         Clear Filter
       </button>
     </div>

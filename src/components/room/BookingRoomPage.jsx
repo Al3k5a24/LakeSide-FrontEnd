@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getRoomById } from "../../utils/ApiFunctions";
+import { FaAlipay, FaDocker, FaDollarSign, FaEllipsisV, FaEye } from 'react-icons/fa'
 
 const BookingRoomPage = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [romm,setRoom]=useState()
+  const [room,setRoom]=useState()
   const [imagePreview, setImagePreview] = useState("");
 
   //get roomId from URL so we can fetch the room data and update
@@ -59,15 +60,20 @@ const BookingRoomPage = () => {
 
   return (
     <section>
-      <div>
+      <div className="flex flex-col items-start justify-between space-y-2.5 p-4">
         {imagePreview && (
           <img
             src={imagePreview}
             alt="Preview Room photo"
             className="m-2 rounded-lg"
-            style={{ maxWidth: "400px", maxHeight: "400px" }}
-          />
-        )}
+            style={{ maxWidth: "900px", maxHeight: "600px" }}/> )}
+
+        <h2 className="text-3xl font-bold mt-4">{room.roomType}</h2>
+        <div className="flex flex-row pt-2 text-xl items-center space-x-2">
+          <span className="text-2xl font-bold"><FaDollarSign/></span>
+          <p className="font-semibold font-sans px-4 py-1 rounded-xl bg-neutral-400/50">{room.roomPrice} / night</p>
+        </div>
+        <p className="text-gray-600 text-center max-w-md"> Some room information should be displayed here</p>
       </div>
     </section>
   );

@@ -34,8 +34,7 @@ const RoomCard = ({ room }) => {
           <div className="flex-1 relative">
             <Link
               to={`booking/${room.id}`}
-              className="absolute top-1/3 right-3"
-            >
+              className="absolute top-1/3 right-3 px-4 py-2 bg-red-500 hover:bg-red-700 text-white font-medium rounded-lg shadow-md whitespace-nowrap transition duration-200">
               Book now
             </Link>
           </div>
