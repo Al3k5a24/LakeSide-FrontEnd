@@ -90,8 +90,12 @@ const EditRoom = () => {
             const response=await updateRoom(roomId,Room)
             console.log("Update response:", response)
             if(response.status===200){
-                setSuccessMessage("Room updated successfully!")
-                setErrorMessage("")
+              setSuccessMessage("Room updated successfully!");
+              setErrorMessage("");
+              //    timeout to reload the page
+              setTimeout(() => {
+                window.location.reload();
+              }, 1500);
             }else{
                 setErrorMessage("Failed to update room. Please try again.")
                 setSuccessMessage("")
@@ -101,10 +105,6 @@ const EditRoom = () => {
             setErrorMessage("Failed to update room. Please try again.")
         }
     }
-        //    timeout to reload the page
-           setTimeout(()=>{
-            window.location.reload();
-           },1500)
 
   return (
     <>
