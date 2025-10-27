@@ -86,80 +86,88 @@ const BookingRoomPage = () => {
         </p>
       </div>
 
-      <div
-        className="grid grid-cols-2 items-start justify-between p-4 gap-4
-        bg-[#F3EFE6] rounded-b-4xl 
-          shadow-[0_-4px_16px_-4px_rgba(0,0,0,0.1),0_8px_24px_-6px_rgba(0,0,0,0.35)]">
-  
-          <h2 className="text-3xl font-bold mt-4">
-            Make a Reservation:
-          </h2>
+  <div class="flex flex-col items-start justify-between bg-[#F3EFE6] rounded-b-4xl shadow-[0_-4px_8px_-4px_rgba(0,0,0,0.1),0_8px_8px_-6px_rgba(0,0,0,0.35)] p-6">
+  <h2 class="text-3xl font-bold mb-6">Make a Reservation:</h2>
+  <form action="" class="grid grid-cols-2 gap-6 w-full">
+    {/* <!-- Full Name --> */}
+    <div class="flex flex-col items-start">
+      <label class="mb-2 font-medium">Full name:</label>
+      <input
+        class="border border-black rounded-lg px-4 py-2.5 w-full"
+        type="text"
+        placeholder="Enter Full name here"
+      />
+    </div>
 
-          <div className="flex items-center flex-shrink-0 text-black ml-auto">
-            <span className="text-2xl font-semibold text-red-600 hover:text-red-700 transition-colors">
-        lakeSide <span className="text-gray-800">hotel</span></span>
-          </div>
+    {/* <!-- Email Address --> */}
+    <div class="flex flex-col items-start">
+      <label class="mb-2 font-medium">E-Mail address:</label>
+      <input
+        class="border border-black rounded-lg px-4 py-2.5 w-full"
+        type="email"
+        placeholder="Enter E-Mail address here"
+      />
+    </div>
 
-        <div className="flex flex-col space-x-2 space-y-2.5 items-start justify-between">
-          <label className="mb-1 font-medium">Full name:</label>
-          <input
-            className="flex border border-black items-start rounded-lg px-7 py-2 w-full"
-            type="text"
-            placeholder="Enter Full name here"
-          />
-        </div>
+    {/* <!-- Number of Adults --> */}
+    <div class="flex flex-col items-start">
+      <label class="mb-2 font-medium">Number of adults:</label>
+      <select
+        class="border border-black rounded-lg px-4 py-2.5 w-full"
+        id="adults"
+      >
+        <option value="" disabled selected>Select number of adults</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4+</option>
+      </select>
+    </div>
 
-        <div className="flex flex-col space-x-2 space-y-2.5 items-start justify-between">
-          <label className="mb-1 font-medium">E-Mail adress::</label>
-          <input
-            className="flex border border-black items-start rounded-lg px-7 py-2 w-full"
-            type="text"
-            placeholder="Enter E-Mail adress here"
-          />
-        </div>
+    {/* <!-- Number of Children --> */}
+    <div class="flex flex-col items-start">
+      <label class="mb-2 font-medium">Number of children:</label>
+      <select
+        class="border border-black rounded-lg px-4 py-2.5 w-full"
+        id="children"
+      >
+        <option value="" disabled selected>Select number of children</option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3+</option>
+      </select>
+    </div>
 
-        <div className="flex flex-col space-x-2 space-y-2.5 items-start justify-between">
-          <label className="mb-1 font-medium">Number of adults:</label>
-          <select className='flex border border-black items-start rounded-lg px-7 py-2.5 w-full'
-          id="roomType" placeholder="Select number of adults"></select>
-        </div>
+    {/* <!-- Check-In Date --> */}
+    <div class="flex flex-col items-start">
+      <label class="mb-2 font-medium">Check-In Date:</label>
+      <input
+        class="border border-black rounded-lg px-4 py-2.5 w-full"
+        type="date"
+      />
+    </div>
 
-        <div className="flex flex-col space-x-2 space-y-2.5 items-start justify-between">
-          <label className="mb-1 font-medium">Number of children:</label>
-          <select className='flex border border-black items-start rounded-lg px-7 py-2.5 w-full'
-          id="roomType" placeholder="Select number of children"></select>
-        </div>
+    {/* <!-- Check-Out Date --> */}
+    <div class="flex flex-col items-start">
+      <label class="mb-2 font-medium">Check-Out Date:</label>
+      <input
+        class="border border-black rounded-lg px-4 py-2.5 w-full"
+        type="date"
+      />
+    </div>
 
-        <div className="flex flex-col space-x-2 space-y-2.5 items-start justify-between">
-          <label className="mb-1 font-medium">Check-In Date:</label>
-          <input
-            className="flex border border-black items-start rounded-lg px-7 py-2 w-full"
-            type="date"
-            placeholder="Enter Full name here"
-          />
-        </div>
-
-        <div className="flex flex-col space-x-2 space-y-2.5 items-start justify-between">
-          <label className="mb-1 font-medium">Check-Out Date:</label>
-          <input
-            className="flex border border-black items-start rounded-lg px-7 py-2 w-full"
-            type="date"
-            placeholder="Enter Full name here"
-          />
-        </div>
-        <div className="flex justify-center col-span-2 mt-4 w-full">
-          <button type="submit" className='
-                        px-11 py-2.5 text-sm 
-                        font-medium text-white
-                        bg-red-700 hover:bg-red-800
-                        focus:ring-4 focus:outline-none
-                        focus:ring-blue-300 
-                        rounded-lg text-
-                        dark:bg-red-600
-                        dark:hover:bg-red-700
-                        dark:focus:ring-red-800'>Submit</button>
-        </div>
-      </div>
+    {/* <!-- Submit Button --> */}
+    <div class="flex justify-center col-span-2 mt-2">
+      <button
+        type="submit"
+        class="px-11 py-2.5 text-base font-medium text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 transition-colors"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
     </section>
   );
 };
