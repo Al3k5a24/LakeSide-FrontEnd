@@ -93,6 +93,7 @@ const BookingRoomPage = () => {
     <div class="flex flex-col items-start">
       <label class="mb-2 font-medium">Full name:</label>
       <input
+      id="fullname"
         class="border border-black rounded-lg px-4 py-2.5 w-full"
         type="text"
         placeholder="Enter Full name here"
@@ -103,6 +104,7 @@ const BookingRoomPage = () => {
     <div class="flex flex-col items-start">
       <label class="mb-2 font-medium">E-Mail address:</label>
       <input
+      id="email"
         class="border border-black rounded-lg px-4 py-2.5 w-full"
         type="email"
         placeholder="Enter E-Mail address here"
@@ -114,8 +116,7 @@ const BookingRoomPage = () => {
       <label class="mb-2 font-medium">Number of adults:</label>
       <select
         class="border border-black rounded-lg px-4 py-2.5 w-full"
-        id="adults"
-      >
+        id="numOfAdults">
         <option value="" disabled selected>Select number of adults</option>
         <option value="1">1</option>
         <option value="2">2</option>
@@ -129,8 +130,7 @@ const BookingRoomPage = () => {
       <label class="mb-2 font-medium">Number of children:</label>
       <select
         class="border border-black rounded-lg px-4 py-2.5 w-full"
-        id="children"
-      >
+        id="numofChildren">
         <option value="" disabled selected>Select number of children</option>
         <option value="0">0</option>
         <option value="1">1</option>
@@ -143,6 +143,7 @@ const BookingRoomPage = () => {
     <div class="flex flex-col items-start">
       <label class="mb-2 font-medium">Check-In Date:</label>
       <input
+      id="checkInDate"
         class="border border-black rounded-lg px-4 py-2.5 w-full"
         type="date"
       />
@@ -152,6 +153,7 @@ const BookingRoomPage = () => {
     <div class="flex flex-col items-start">
       <label class="mb-2 font-medium">Check-Out Date:</label>
       <input
+      id="checkOutDate"
         class="border border-black rounded-lg px-4 py-2.5 w-full"
         type="date"
       />
