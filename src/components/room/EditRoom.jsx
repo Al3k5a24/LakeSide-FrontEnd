@@ -8,7 +8,7 @@ const EditRoom = () => {
       //roomPrice state to handle input 
       const [priceValue,setpriceValue]=useState("")
       
-        //defining new room object
+      //defining new room object
       const[Room, setRoom]=useState({
           photo:null,
           roomType:"",

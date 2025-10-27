@@ -1,18 +1,85 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getRoomById } from "../../utils/ApiFunctions";
+import { bookRoom, getRoomById } from "../../utils/ApiFunctions";
 import { FaDollarSign } from "react-icons/fa";
 
 const BookingRoomPage = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [room, setRoom] = useState();
   const [imagePreview, setImagePreview] = useState("");
-  const [date, setDate] = useState(new Date());
+  const [adultsValue, setAdultsValue] = useState(0);
+  const [childrenValue, setChildrenValue] = useState(0);
+  const [InDate, setInDate] = useState(new Date());
+  const [OutDate, setOutDate] = useState(new Date());
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   //get roomId from URL so we can fetch the room data and update
   const { roomId } = useParams();
   console.log("roomId from URL:", roomId);
+
+  const [room, setRoom] = useState({
+    roomType: "",
+    roomPrice: 0,
+    photo: null,
+  });
+
+  //defining new room object
+  const [bookedRoom, setBookedRoom] = useState({
+    guestFullName: "",
+    guestEmail: "",
+    numOfAdults: 0,
+    numOfChildren: 0,
+    checkInDate: null,
+    checkOutDate: null,
+  });
+
+  //function that will handle image preview and selection
+    const handleImageChange=(e)=>{
+        const selectedImage= e.target.files[0]
+        setRoom({...Room, photo: selectedImage})
+        setImagePreview(URL.createObjectURL(selectedImage))
+    }
+
+  //function to handle full name input change
+  const handleFullnameChange = (e) => {
+    const value = e.target.value;
+    setBookedRoom({ ...bookedRoom, guestFullName: value });
+  }
+
+   //function to handle email input change
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setBookedRoom({ ...bookedRoom, guestEmail: value });
+  }
+
+  //function to handle number of adults input change
+  const handleNumOfAdultsChange = (e) =>{
+    const value = e.target.value;
+    setAdultsValue(value);
+    setBookedRoom({...bookedRoom, numOfAdults: parseInt(value)});
+  }
+
+  //function to handle number of children input change
+  const handleNumOfChildrenChange = (e) =>{
+    const value = e.target.value;
+    setChildrenValue(value);
+    setBookedRoom({...bookedRoom, numOfChildren: parseInt(value)});
+  }
+
+  //function to handle check in date input change
+  const handleCheckInDateChange = (e) =>{
+    const value = e.target.value;
+    setInDate(value);
+    setBookedRoom({...bookedRoom, checkInDate: value});
+  }
+
+  //function to handle check out date input change
+  const handleCheckOutDateChange = (e) =>{
+    const value = e.target.value;
+    setOutDate(value);
+    setBookedRoom({...bookedRoom, checkOutDate: value});
+  }
 
   useEffect(() => {
     const fetchRoomData = async () => {
@@ -60,6 +127,34 @@ const BookingRoomPage = () => {
     return <div>Error: {error.message} </div>;
   }
 
+  //handle submit for booking page
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  console.log("📝 SUBMIT POZVAN");
+  console.log("🆔 roomId:", roomId);
+  console.log("📦 bookedRoom data:", bookedRoom);
+  console.log("📦 bookedRoom JSON:", JSON.stringify(bookedRoom, null, 2));
+  
+  try {
+    console.log("🔄 Pozivam bookRoom API...");
+    const response = await bookRoom(roomId, bookedRoom);
+    console.log("✅ API odgovor:", response);
+    console.log("📊 Status:", response.status);
+    
+    if(response.status === 200){
+      console.log("🎉 Uspešna rezervacija!");
+      setSuccessMessage("Room booked successfully!");
+      setErrorMessage("");
+    }
+  } catch (error) {
+    console.error("❌ GREŠKA u handleSubmit:", error);
+    console.error("❌ Detalji greške:", error.message);
+    console.error("❌ Stack trace:", error.stack);
+    setErrorMessage(`Failed to book room: ${error.stack}`);
+  }
+  }
+
+
   return (
     <section className="grid grid-cols-2 gap-4 bg-white rounded-4xl">
       <div className="flex flex-col items-start justify-between space-y-2.5 p-4">
@@ -86,90 +181,124 @@ const BookingRoomPage = () => {
         </p>
       </div>
 
-  <div class="flex flex-col items-start justify-between bg-[#F3EFE6] rounded-b-4xl shadow-[0_-4px_8px_-4px_rgba(0,0,0,0.1),0_8px_8px_-6px_rgba(0,0,0,0.35)] p-6">
-  <h2 class="text-3xl font-bold mb-6">Make a Reservation:</h2>
-  <form action="" class="grid grid-cols-2 gap-6 w-full">
-    {/* <!-- Full Name --> */}
-    <div class="flex flex-col items-start">
-      <label class="mb-2 font-medium">Full name:</label>
-      <input
-      id="fullname"
-        class="border border-black rounded-lg px-4 py-2.5 w-full"
-        type="text"
-        placeholder="Enter Full name here"
-      />
-    </div>
+      <div className="flex flex-col items-start justify-between bg-[#F3EFE6] rounded-b-4xl shadow-[0_-4px_8px_-4px_rgba(0,0,0,0.1),0_8px_8px_-6px_rgba(0,0,0,0.35)] p-6">
+        <h2 className="text-3xl font-bold mb-6">Make a Reservation:</h2>
+        {/* //displays success message if there is any */}
+                {successMessage &&(
+                    <div className='bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-3'>
+                        {successMessage}
+                    </div>
+                )}
 
-    {/* <!-- Email Address --> */}
-    <div class="flex flex-col items-start">
-      <label class="mb-2 font-medium">E-Mail address:</label>
-      <input
-      id="email"
-        class="border border-black rounded-lg px-4 py-2.5 w-full"
-        type="email"
-        placeholder="Enter E-Mail address here"
-      />
-    </div>
+                {/* //displays error message if there is any */}
+                {errorMessage &&(
+                    <div className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-3'>
+                        {errorMessage}
+                    </div>
+                )}
+        
+        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6 w-full">
+          {/* <!-- Full Name --> */}
+          <div className="flex flex-col items-start">
+            <label className="mb-2 font-medium">Full name:</label>
+            <input
+            value={bookedRoom.guestFullName}
+            onChange={handleFullnameChange}
+              id="guestFullName"
+              name="guestFullName"
+              className="border border-black rounded-lg px-4 py-2.5 w-full"
+              type="text"
+              placeholder="Enter Full name here"
+            />
+          </div>
 
-    {/* <!-- Number of Adults --> */}
-    <div class="flex flex-col items-start">
-      <label class="mb-2 font-medium">Number of adults:</label>
-      <select
-        class="border border-black rounded-lg px-4 py-2.5 w-full"
-        id="numOfAdults">
-        <option value="" disabled selected>Select number of adults</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4+</option>
-      </select>
-    </div>
+          {/* <!-- Email Address --> */}
+          <div className="flex flex-col items-start">
+            <label className="mb-2 font-medium">E-Mail address:</label>
+            <input
+            value={bookedRoom.guestEmail}
+            onChange={handleEmailChange}
+              id="guestEmail"
+              name="guestEmail"
+              className="border border-black rounded-lg px-4 py-2.5 w-full"
+              type="email"
+              placeholder="Enter E-Mail address here"
+            />
+          </div>
 
-    {/* <!-- Number of Children --> */}
-    <div class="flex flex-col items-start">
-      <label class="mb-2 font-medium">Number of children:</label>
-      <select
-        class="border border-black rounded-lg px-4 py-2.5 w-full"
-        id="numofChildren">
-        <option value="" disabled selected>Select number of children</option>
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3+</option>
-      </select>
-    </div>
+          {/* <!-- Number of Adults --> */}
+          <div className="flex flex-col items-start">
+            <label className="mb-2 font-medium">Number of adults:</label>
+            <select
+            onChange={handleNumOfAdultsChange}
+              className="border border-black rounded-lg px-4 py-2.5 w-full"
+              id="numOfAdults"
+              name="numOfAdults"
+            >
+              <option value="" disabled selected>
+                Select number of adults
+              </option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4+</option>
+            </select>
+          </div>
 
-    {/* <!-- Check-In Date --> */}
-    <div class="flex flex-col items-start">
-      <label class="mb-2 font-medium">Check-In Date:</label>
-      <input
-      id="checkInDate"
-        class="border border-black rounded-lg px-4 py-2.5 w-full"
-        type="date"
-      />
-    </div>
+          {/* <!-- Number of Children --> */}
+          <div className="flex flex-col items-start">
+            <label className="mb-2 font-medium">Number of children:</label>
+            <select
+            onChange={handleNumOfChildrenChange}
+              className="border border-black rounded-lg px-4 py-2.5 w-full"
+              id="numOfChildren"
+              name="numOfChildren"
+            >
+              <option value="" disabled selected>
+                Select number of children
+              </option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3+</option>
+            </select>
+          </div>
 
-    {/* <!-- Check-Out Date --> */}
-    <div class="flex flex-col items-start">
-      <label class="mb-2 font-medium">Check-Out Date:</label>
-      <input
-      id="checkOutDate"
-        class="border border-black rounded-lg px-4 py-2.5 w-full"
-        type="date"
-      />
-    </div>
+          {/* <!-- Check-In Date --> */}
+          <div className="flex flex-col items-start">
+            <label className="mb-2 font-medium">Check-In Date:</label>
+            <input
+            onChange={handleCheckInDateChange}
+              id="checkInDate"
+              name="checkInDate"
+              className="border border-black rounded-lg px-4 py-2.5 w-full"
+              type="date"
+            />
+          </div>
 
-    {/* <!-- Submit Button --> */}
-    <div class="flex justify-center col-span-2 mt-2">
-      <button
-        type="submit"
-        class="px-11 py-2.5 text-base font-medium text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 transition-colors"
-      >
-        Submit
-      </button>
-    </div>
-  </form>
-</div>
+          {/* <!-- Check-Out Date --> */}
+          <div className="flex flex-col items-start">
+            <label className="mb-2 font-medium">Check-Out Date:</label>
+            <input
+            onChange={handleCheckOutDateChange}
+              id="checkOutDate"
+              name="checkOutDate"
+              className="border border-black rounded-lg px-4 py-2.5 w-full"
+              type="date"
+            />
+          </div>
+
+          {/* <!-- Submit Button --> */}
+          <div className="flex justify-center col-span-2 mt-2">
+            <button
+              type="submit"
+              className="px-11 py-2.5 text-base font-medium text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 transition-colors"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
     </section>
   );
 };

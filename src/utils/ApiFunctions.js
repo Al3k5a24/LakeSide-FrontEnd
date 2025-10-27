@@ -71,3 +71,19 @@ export async function getRoomById(roomId){
         throw new Error(`Could not fetch room ${error.message}`)
     }
 }
+
+export async function bookRoom(roomId, bookingData){
+    try {
+        const formData=new FormData()
+        formData.append("guestFullName",bookingData.guestFullName)
+        formData.append("guestEmail",bookingData.guestEmail)
+        formData.append("numOfAdults",bookingData.numOfAdults)
+        formData.append("numOfChildren",bookingData.numOfChildren)
+        formData.append("checkInDate",bookingData.checkInDate)
+        formData.append("checkOutDate",bookingData.checkOutDate)
+        const response=await api.post(`/rooms/browse-rooms/booking/${roomId}`,formData)
+        return response
+    } catch (error) {
+        throw new Error(`Could not book room ${error.message}`)
+    }
+}
