@@ -130,27 +130,14 @@ const BookingRoomPage = () => {
   //handle submit for booking page
   const handleSubmit = async (e) => {
     e.preventDefault();
-  console.log("📝 SUBMIT POZVAN");
-  console.log("🆔 roomId:", roomId);
-  console.log("📦 bookedRoom data:", bookedRoom);
-  console.log("📦 bookedRoom JSON:", JSON.stringify(bookedRoom, null, 2));
-  
   try {
-    console.log("🔄 Pozivam bookRoom API...");
     const response = await bookRoom(roomId, bookedRoom);
-    console.log("✅ API odgovor:", response);
-    console.log("📊 Status:", response.status);
-    
     if(response.status === 200){
-      console.log("🎉 Uspešna rezervacija!");
       setSuccessMessage("Room booked successfully!");
       setErrorMessage("");
     }
   } catch (error) {
-    console.error("❌ GREŠKA u handleSubmit:", error);
-    console.error("❌ Detalji greške:", error.message);
-    console.error("❌ Stack trace:", error.stack);
-    setErrorMessage(`Failed to book room: ${error.stack}`);
+    setErrorMessage(`Failed to book room: ${error.message}`);
   }
   }
 
@@ -185,14 +172,14 @@ const BookingRoomPage = () => {
         <h2 className="text-3xl font-bold mb-6">Make a Reservation:</h2>
         {/* //displays success message if there is any */}
                 {successMessage &&(
-                    <div className='bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-3'>
+                    <div className='bg-green-100 border hidden border-green-400 text-green-700 px-4 py-3 rounded relative mb-3 w-full text-center'>
                         {successMessage}
                     </div>
                 )}
 
                 {/* //displays error message if there is any */}
                 {errorMessage &&(
-                    <div className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-3'>
+                    <div className='bg-red-100 border hidden border-red-400 text-red-700 px-4 py-3 rounded relative mb-3 w-full text-center'>
                         {errorMessage}
                     </div>
                 )}
