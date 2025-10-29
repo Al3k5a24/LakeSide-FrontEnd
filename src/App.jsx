@@ -13,26 +13,25 @@ import Login from './components/Authentication/LoginPage.jsx'
 function App() {
 
   return (    
-    <>
-    {/* define routes for different components */}
-    <main>
-      <Router>
-        <NavBar/>
-        <Routes>
-          <Route path='/' element={<Home/>}/>
-          <Route path='/edit-room/:roomId' element={<EditRoom/>}/>
-          <Route path='/existingRooms' element={<ExistingRooms/>}/>
-          <Route path='/add/new-room' element={<AddRoom/>}/>
-          <Route path='/browse-rooms' element={<RoomListing/>}/>
-          <Route path='/browse-rooms/booking/:roomId' element={<BookingRoomPage/>}/>
-          <Route path='/login' element={<Login/>}/>
-        </Routes>
-      </Router>
-      <div className='mt-15 w-full'>
+    <Router>
+      <div className='App'>
+        <div className='App__container'>
+          <NavBar/>
+          <main className="App__content">
+            <Routes>
+              <Route path='/' element={<Home/>}/>
+              <Route path='/edit-room/:roomId' element={<EditRoom/>}/>
+              <Route path='/existingRooms' element={<ExistingRooms/>}/>
+              <Route path='/add/new-room' element={<AddRoom/>}/>
+              <Route path='/browse-rooms' element={<RoomListing/>}/>
+              <Route path='/browse-rooms/booking/:roomId' element={<BookingRoomPage/>}/>
+              <Route path='/login' element={<Login/>}/>
+            </Routes>
+          </main>
+        </div>
         <Footer/>
       </div>
-    </main>
-    </>
+    </Router>
   )
 }
 

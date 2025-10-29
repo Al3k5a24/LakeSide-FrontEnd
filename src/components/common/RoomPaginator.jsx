@@ -9,7 +9,7 @@ const RoomPaginator = ({currentPage, totalPages, onPageChange}) => {
             {pageNumbers.map((pageNumber)=>(
                 <li key={pageNumber}
                 //add tailwind later for selected and non-selected page button!
-                className={`${currentPage===pageNumber ? "active": ""}`}>
+                className={`${currentPage===pageNumber ? "active": "flex items-center justify-center"}`}>
                     <button onClick={()=>onPageChange(pageNumber)}>
                         {pageNumber}
                     </button>

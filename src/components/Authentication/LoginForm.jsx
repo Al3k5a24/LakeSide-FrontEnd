@@ -16,7 +16,7 @@ const LoginForm = () => {
           </a>
         </div>
         <h1 className="mb-4 text-center text-2xl font-semibold">
-          Create new account
+          Sign in existing account
         </h1>
         <div className="mb-4">
           <label htmlFor="email" className="mb-1 block text-sm text-gray-400">
@@ -27,7 +27,7 @@ const LoginForm = () => {
             id="email"
             placeholder="name@example.com"
             autocomplete="email"
-            className="py-2 w-full rounded border border-gray-300 bg-slate-100 px-5 text-center text-gray-400 placeholder-[#7f8c8d] focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            className="py-2 w-full rounded-xl border border-gray-300 bg-slate-100 px-5 text-center text-gray-400 placeholder-[#7f8c8d] focus:ring-2 focus:ring-red-500 focus:outline-none"
           />
         </div>
         <div className="mb-4">
@@ -42,7 +42,7 @@ const LoginForm = () => {
             id="password"
             placeholder="Password"
             autocomplete="new-password"
-            className="py-2 w-full rounded border border-gray-300 bg-slate-100 px-2 text-center text-gray-400 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+            className="py-2 w-full rounded-xl border border-gray-300 bg-slate-100 px-2 text-center placeholder-[#7f8c8d] text-gray-400 focus:ring-2 focus:ring-red-500 focus:outline-none"
           />
         </div>
         <div className="mb-2 text-right">
@@ -50,9 +50,11 @@ const LoginForm = () => {
             Forgot Password?
           </a>
         </div>
-        <button className="py-2.5 font-medium w-full rounded bg-indigo-500 text-white transition-colors duration-300 hover:bg-indigo-600">
-          Create account
-        </button>
+        <div className="flex items-center justify-center m-5 0 ">
+          <button className="py-2.5 font-medium w-1/2 rounded-2xl bg-red-500 text-white transition-colors duration-300 hover:bg-red-600">
+            Sign in
+          </button>
+        </div>
       </form>
     </div>
   );

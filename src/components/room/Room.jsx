@@ -52,11 +52,11 @@ const Room = () => {
     <Container>
       <Row>
 
-        <Col md={6}>
+        <Col md={6} >
         <RoomFilter data={data} setFilteredData={setFilteredData}/>
         </Col>
 
-        <Col md={6}>
+        <Col md={6} className='flex items-center justify-center mt-3 mb-3'>
         <RoomPaginator currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
         </Col>
 
@@ -66,7 +66,7 @@ const Room = () => {
         {renderRooms()}
       </Row>
 
-      <Row>
+      <Row className='flex items-center justify-center mt-3 mb-3'>
         <Col md={6}>
         <RoomPaginator currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
         </Col>
