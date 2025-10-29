@@ -9,6 +9,8 @@ import Footer from './components/layout/Footer.jsx'
 import RoomListing from './components/room/RoomListing.jsx'
 import BookingRoomPage from './components/room/BookingRoomPage.jsx'
 import Login from './components/Authentication/LoginPage.jsx'
+import LoginPage from './components/Authentication/LoginPage.jsx'
+import RegisterPage from './components/Authentication/RegisterPage.jsx'
 
 function App() {
 
@@ -25,7 +27,8 @@ function App() {
               <Route path='/add/new-room' element={<AddRoom/>}/>
               <Route path='/browse-rooms' element={<RoomListing/>}/>
               <Route path='/browse-rooms/booking/:roomId' element={<BookingRoomPage/>}/>
-              <Route path='/login' element={<Login/>}/>
+              <Route path='/login' element={<LoginPage/>}/>
+              <Route path='/register' element={<RegisterPage/>}/>
             </Routes>
           </main>
         </div>

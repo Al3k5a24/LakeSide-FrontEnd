@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const LoginForm = () => {
   return (
@@ -45,12 +46,19 @@ const LoginForm = () => {
             className="py-2 w-full rounded-xl border border-gray-300 bg-slate-100 px-2 text-center placeholder-[#7f8c8d] text-gray-400 focus:ring-2 focus:ring-red-500 focus:outline-none"
           />
         </div>
-        <div className="mb-2 text-right">
-          <a href="#" className="text-sm text-gray-400 hover:text-indigo-500">
-            Forgot Password?
-          </a>
+        <div className="flex flex-row mb-2 text-right">
+          <Link to={"/register"}>
+          <p className="text-sm text-gray-400 hover:text-red-500"> 
+            Haven't created an account yet?
+          </p>
+          </Link>
+          <Link to={"/forgot-password"} className="ml-auto">
+          <p className="text-sm text-gray-400 hover:text-red-500"> 
+            Forgot password?
+          </p>
+          </Link>
         </div>
-        <div className="flex items-center justify-center m-5 0 ">
+        <div className="flex items-center justify-center mt-5 mb-5">
           <button className="py-2.5 font-medium w-1/2 rounded-2xl bg-red-500 text-white transition-colors duration-300 hover:bg-red-600">
             Sign in
           </button>

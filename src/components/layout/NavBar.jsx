@@ -11,7 +11,7 @@ const NavBar = () => {
 
   return (
 <nav className="relative flex flex-col md:flex-row w-full items-center justify-between px-6 py-4 mb-5 bg-[#F3EFE6] rounded-b-4xl 
-               shadow-[0_-4px_16px_-4px_rgba(0,0,0,0.1),0_8px_24px_-6px_rgba(0,0,0,0.35)] mt-3">
+  shadow-[0_-4px_16px_-4px_rgba(0,0,0,0.1),0_8px_24px_-6px_rgba(0,0,0,0.35)] mt-3">
   {/* Logo */}
   <div className="flex items-center flex-shrink-0 text-black mr-6">
     <Link to="/" className="flex items-center gap-2">
