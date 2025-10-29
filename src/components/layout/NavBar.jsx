@@ -32,8 +32,7 @@ const NavBar = () => {
   <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto mt-4 lg:mt-0 space-y-3 lg:space-y-0 lg:space-x-8 text-lg font-medium">
     <NavLink
       to="/browse-rooms"
-      className="block text-gray-700 hover:text-red-500 transition-colors"
-    >
+      className="block text-gray-700 hover:text-red-500 transition-colors">
       Browse all Rooms
     </NavLink>
 
@@ -44,9 +43,8 @@ const NavBar = () => {
     */}
 
     <NavLink
-      to="/booking"
-      className="block text-gray-700 hover:text-red-500 transition-colors"
-    >
+      to="/my-booking"
+      className="block text-gray-700 hover:text-red-500 transition-colors">
       Find my Booking
     </NavLink>
 
@@ -54,8 +52,7 @@ const NavBar = () => {
 
     <Link
       to="/login"
-      className="ml-auto block text-gray-700 hover:text-red-500 transition-colors"
-    >
+      className="ml-auto block text-gray-700 hover:text-red-500 transition-colors">
       Log in
     </Link>
 

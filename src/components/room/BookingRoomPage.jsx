@@ -16,7 +16,6 @@ const BookingRoomPage = () => {
 
   //get roomId from URL so we can fetch the room data and update
   const { roomId } = useParams();
-  console.log("roomId from URL:", roomId);
 
   const [room, setRoom] = useState({
     roomType: "",
@@ -33,13 +32,6 @@ const BookingRoomPage = () => {
     checkInDate: null,
     checkOutDate: null,
   });
-
-  //function that will handle image preview and selection
-    const handleImageChange=(e)=>{
-        const selectedImage= e.target.files[0]
-        setRoom({...Room, photo: selectedImage})
-        setImagePreview(URL.createObjectURL(selectedImage))
-    }
 
   //function to handle full name input change
   const handleFullnameChange = (e) => {
@@ -135,12 +127,16 @@ const BookingRoomPage = () => {
     if(response.status === 200){
       setSuccessMessage("Room booked successfully!");
       setErrorMessage("");
+      setTimeout(() => {
+      window.location.reload();
+      }, 1000);
+    }else{
+      setErrorMessage("Failed to book room. Please try again.");
+      setSuccessMessage("");
     }
   } catch (error) {
     setErrorMessage(`Failed to book room: ${error.message}`);
-  }
-  }
-
+  }}
 
   return (
     <section className="grid grid-cols-2 gap-4 bg-white rounded-4xl">
@@ -172,14 +168,14 @@ const BookingRoomPage = () => {
         <h2 className="text-3xl font-bold mb-6">Make a Reservation:</h2>
         {/* //displays success message if there is any */}
                 {successMessage &&(
-                    <div className='bg-green-100 border hidden border-green-400 text-green-700 px-4 py-3 rounded relative mb-3 w-full text-center'>
+                    <div className='bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-3 w-full text-center'>
                         {successMessage}
                     </div>
                 )}
 
                 {/* //displays error message if there is any */}
                 {errorMessage &&(
-                    <div className='bg-red-100 border hidden border-red-400 text-red-700 px-4 py-3 rounded relative mb-3 w-full text-center'>
+                    <div className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-3 w-full text-center'>
                         {errorMessage}
                     </div>
                 )}
@@ -239,8 +235,7 @@ const BookingRoomPage = () => {
             onChange={handleNumOfChildrenChange}
               className="border border-black rounded-lg px-4 py-2.5 w-full"
               id="numOfChildren"
-              name="numOfChildren"
-            >
+              name="numOfChildren">
               <option value="" disabled selected>
                 Select number of children
               </option>
@@ -259,8 +254,7 @@ const BookingRoomPage = () => {
               id="checkInDate"
               name="checkInDate"
               className="border border-black rounded-lg px-4 py-2.5 w-full"
-              type="date"
-            />
+              type="date"/>
           </div>
 
           {/* <!-- Check-Out Date --> */}
@@ -271,16 +265,16 @@ const BookingRoomPage = () => {
               id="checkOutDate"
               name="checkOutDate"
               className="border border-black rounded-lg px-4 py-2.5 w-full"
-              type="date"
-            />
+              type="date"/>
           </div>
 
           {/* <!-- Submit Button --> */}
           <div className="flex justify-center col-span-2 mt-2">
             <button
               type="submit"
-              className="px-11 py-2.5 text-base font-medium text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 transition-colors"
-            >
+              className="px-11 py-2.5 text-base font-medium text-white bg-red-700 hover:bg-red-800
+               focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg dark:bg-red-600
+                dark:hover:bg-red-700 dark:focus:ring-red-800 transition-colors">
               Submit
             </button>
           </div>

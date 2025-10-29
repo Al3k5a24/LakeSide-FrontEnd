@@ -1,0 +1,61 @@
+import React from "react";
+
+const LoginForm = () => {
+  return (
+    <div className="w-full max-w-lg max-h-full rounded-lg bg-gray-50 border border-gray-200 p-4 mx-2">
+      <form className="bg-[#F3EFE6] items-center py-4 px-3 rounded-3xl inset-shadow-sm inset-shadow-gray-400 drop-shadow-xl/40 space-y-3">
+        <div className="py-4 flex justify-center">
+          <a href="/">
+            <img
+              src="./src/assets/hotel-svgrepo-com.png"
+              alt="icon"
+              width="100"
+              height="100"
+              loading="lazy"
+            />
+          </a>
+        </div>
+        <h1 className="mb-4 text-center text-2xl font-semibold">
+          Create new account
+        </h1>
+        <div className="mb-4">
+          <label htmlFor="email" className="mb-1 block text-sm text-gray-400">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            placeholder="name@example.com"
+            autocomplete="email"
+            className="py-2 w-full rounded border border-gray-300 bg-slate-100 px-5 text-center text-gray-400 placeholder-[#7f8c8d] focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="password"
+            className="mb-1 block text-sm text-gray-400"
+          >
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            autocomplete="new-password"
+            className="py-2 w-full rounded border border-gray-300 bg-slate-100 px-2 text-center text-gray-400 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+          />
+        </div>
+        <div className="mb-2 text-right">
+          <a href="#" className="text-sm text-gray-400 hover:text-indigo-500">
+            Forgot Password?
+          </a>
+        </div>
+        <button className="py-2.5 font-medium w-full rounded bg-indigo-500 text-white transition-colors duration-300 hover:bg-indigo-600">
+          Create account
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default LoginForm;

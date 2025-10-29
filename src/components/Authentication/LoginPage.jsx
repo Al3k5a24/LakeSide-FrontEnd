@@ -1,0 +1,21 @@
+import React from 'react'
+import LoginForm from './LoginForm'
+
+const LoginPage = () => {
+  return (
+    <section>
+      <div className='flex flex-col items-center justify-center'>
+        <span className="text-6xl font-semibold text-red-600 hover:text-red-700 transition-colors">
+        lakeSide <span className="text-gray-800">hotel</span>
+      </span>
+        <p className='mt-2 text-md text-gray-700 leading-relaxed font-light'>Experience serenity by the lake, wrapped in luxury and warmth. <br />
+        Sign in and let your perfect stay begin.</p>
+      </div>
+      <div className='flex w-full items-center justify-center mt-5'>
+        <LoginForm/>
+      </div>
+    </section>
+  )
+}
+
+export default LoginPage
