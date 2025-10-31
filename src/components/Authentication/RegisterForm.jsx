@@ -70,7 +70,7 @@ const RegisterForm = () => {
           </button>
         </div>
 
-        <Link>
+        <Link to={"/login"}>
           <span className="flex items-center justify-center text-gray-500 hover:text-red-700">
             Already have an account?
           </span>

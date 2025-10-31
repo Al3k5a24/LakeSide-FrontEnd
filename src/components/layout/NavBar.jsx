@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 const NavBar = () => {
 
   const [showAccount, setShowAccount] = useState(false);
+   const location = useLocation();
+   const hideElementLogin = location.pathname === '/login';
+   const hideElementRegister = location.pathname === '/register';
 
   const handleAccountClick = () => {
     setShowAccount(!showAccount); //true
@@ -50,11 +53,11 @@ const NavBar = () => {
 
     <a className="hidden"></a>
 
-    <Link
+    {!hideElementLogin && !hideElementRegister && <Link
       to="/login"
       className="ml-auto block text-gray-700 hover:text-red-500 transition-colors">
       Log in
-    </Link>
+    </Link>}
 
     {/* View if user is logged in
       <Link className="block text-gray-700 hover:text-red-500 transition-colors">
