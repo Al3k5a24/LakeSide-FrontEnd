@@ -15,6 +15,18 @@ try {
     const response=await api.post("/auth/create-account",formData)
     return response
 } catch (error) {
-    throw new Error(`Could not create account ${error.error}`)
+    throw new Error(`Could not create account ${error.message}`)
 }
+}
+
+export async function signInAccount(userData){
+    try {
+    const formData=new FormData();
+    formData.append("email",userData.email);
+    formData.append("password",userData.password);
+    const response=await api.post("/auth/sign-in",formData)
+    return response 
+    } catch (error) {
+        throw new Error(`Could not create account ${error.message}`)
+    }
 }

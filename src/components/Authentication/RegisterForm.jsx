@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 import { createAccount } from "../../utils/ApiAuth";
 
 const RegisterForm = () => {
-  const [fullName, setFullName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -45,7 +42,7 @@ const RegisterForm = () => {
         setSuccessMessage("");
       }
     } catch (error) {
-      setErrorMessage(`Failed to book room: ${error.message}`);
+      setErrorMessage(`Failed to create account: ${error.message}`);
     }
   };
 

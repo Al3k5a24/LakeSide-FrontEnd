@@ -4,7 +4,7 @@ import RegisterForm from './RegisterForm'
 const RegisterPage = () => {
   return (
     <section>
-      <div className='flex flex-col items-center justify-center'>
+      <div className='flex flex-col items-center justify-center mt-10'>
         <span className="text-6xl font-semibold text-red-600 hover:text-red-700 transition-colors">
         lakeSide <span className="text-gray-800">hotel</span>
       </span>

@@ -1,11 +1,15 @@
 import React from 'react'
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row} from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
 
 const Footer = () => {
 let today=new Date();
+const location = useLocation();
+   const hideElementLogin = location.pathname === '/login';
+   const hideElementRegister = location.pathname === '/register';
   return (
   //  To set the footer at the bottom of the page, use fixed positioning
-   <footer
+   hideElementLogin || !hideElementRegister && <footer
       style={{
         backgroundColor: "#222",
         color: "#fff",
