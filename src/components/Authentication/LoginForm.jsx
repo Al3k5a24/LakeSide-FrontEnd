@@ -24,6 +24,7 @@ const LoginForm = () => {
             Email
           </label>
           <input
+          required
             type="email"
             id="email"
             placeholder="name@example.com"
@@ -39,6 +40,7 @@ const LoginForm = () => {
             Password
           </label>
           <input
+            required
             type="password"
             id="password"
             placeholder="Password"
@@ -58,7 +60,7 @@ const LoginForm = () => {
           </p>
           </Link>
         </div>
-        <div className="flex items-center justify-center mt-5 mb-5">
+        <div className="flex items-center justify-center mt-7 mb-3">
           <button className="py-2.5 font-medium w-1/2 rounded-2xl bg-red-500 text-white transition-colors duration-300 hover:bg-red-600">
             Sign in
           </button>
