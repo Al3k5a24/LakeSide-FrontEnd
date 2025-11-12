@@ -30,3 +30,17 @@ export async function signInAccount(userData){
         throw new Error(`Could not create account ${error.message}`)
     }
 }
+
+//function to get profile for user after successfull auth
+export async function getUserProfile(){
+    try{
+        const result = await api.get("/auth/profile")
+        //returning multiple properties
+        return {
+            fullName: result.data.fullName,
+            email: result.data.email
+        }
+    }catch(error){
+        throw new Error("Error fetching user profile")
+    }
+}

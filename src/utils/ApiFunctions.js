@@ -72,6 +72,7 @@ export async function getRoomById(roomId){
     }
 }
 
+//function to book a room
 export async function bookRoom(roomId, bookingData){
     try {
         const formData=new FormData()

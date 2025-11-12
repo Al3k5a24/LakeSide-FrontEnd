@@ -53,7 +53,6 @@ const RegisterForm = () => {
         className="bg-[#F3EFE6] items-center py-4 px-3 rounded-3xl inset-shadow-sm inset-shadow-gray-400 drop-shadow-xl/40 space-y-3"
       >
         <div className="py-4 flex justify-center">
-          <a href="/">
             <img
               src="./src/assets/hotel-svgrepo-com.png"
               alt="icon"
@@ -61,7 +60,6 @@ const RegisterForm = () => {
               height="100"
               loading="lazy"
             />
-          </a>
         </div>
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
           Create an account
@@ -133,7 +131,7 @@ const RegisterForm = () => {
         <div className="flex items-center justify-center mt-5 mb-3">
           <button
             type="submit"
-            className="w-1/2 mb-3 rounded-2xl bg-red-500 hover:bg-red-800 transition-all active:scale-95 py-2.5 text-white font-medium"
+            className="w-1/2 rounded-2xl bg-red-500 hover:bg-red-800 transition-all active:scale-95 py-2.5 text-white font-medium"
           >
             Create Account
           </button>

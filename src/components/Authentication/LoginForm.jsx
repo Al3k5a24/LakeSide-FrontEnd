@@ -47,15 +47,13 @@ const LoginForm = () => {
         className="bg-[#F3EFE6] items-center py-4 px-3 rounded-3xl inset-shadow-sm inset-shadow-gray-400 drop-shadow-xl/40 space-y-3"
       >
         <div className="py-4 flex justify-center">
-          <a href="/login">
-            <img
-              src="./src/assets/hotel-svgrepo-com.png"
-              alt="icon"
-              width="100"
-              height="100"
-              loading="lazy"
-            />
-          </a>
+          <img
+            src="./src/assets/hotel-svgrepo-com.png"
+            alt="icon"
+            width="100"
+            height="100"
+            loading="lazy"
+          />
           {/* //displays success message if there is any */}
           {successMessage && (
             <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-3 w-full text-center">
@@ -105,24 +103,26 @@ const LoginForm = () => {
           />
         </div>
         <div className="flex flex-row mb-2 text-right">
-          <Link to={"/register"}>
-            <p className="text-sm text-gray-400 hover:text-red-500">
-              Haven't created an account yet?
-            </p>
-          </Link>
           <Link to={"/forgot-password"} className="ml-auto">
             <p className="text-sm text-gray-400 hover:text-red-500">
               Forgot password?
             </p>
           </Link>
         </div>
-        <div className="flex items-center justify-center mt-7 mb-3">
+        <div className="flex items-center justify-center mt-5 mb-3">
           <button
             type="submit"
             className="py-2.5 font-medium w-1/2 rounded-2xl bg-red-500 text-white transition-colors duration-300 hover:bg-red-600"
           >
             Sign in
           </button>
+        </div>
+        <div className="flex flex-row items-center justify-center">
+          <Link to={"/register"}>
+            <p className="text-sm text-gray-400 hover:text-red-500">
+              Haven't created an account yet?
+            </p>
+          </Link>
         </div>
       </form>
     </div>
