@@ -4,6 +4,7 @@ const UserProfile = (userFullName) => {
     const [fullName, setFullName]=useState("");
     const [firstName, setFirstName]=useState("");
     const [lastName, setLastName]=useState("");
+    const [initials, setInitials]=useState("");
 
     //bcs we have full name, in order to make icon from initals
     //we need to separate first and last name and take initials
@@ -26,8 +27,8 @@ const UserProfile = (userFullName) => {
     //create profile avatar from image
     const ProfileImage=({firstName,lastName})=>{
         const getInitals = `${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`;
+        setInitials(getInitals);
     }
-    const initials=ProfileImage(firstName,lastName);
     
     return (
     <div className='w-15 h-15 rounded-full border-y-indigo-400'>

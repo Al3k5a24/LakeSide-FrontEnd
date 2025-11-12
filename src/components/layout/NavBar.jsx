@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { getUserProfile } from "../../utils/ApiAuth";
+import { getUserProfile, signInAccount, signInAndGetProfile } from "../../utils/ApiAuth";
+import UserProfile from "../Authentication/UserProfile";
 
 const NavBar = () => {
 
   const [showAccount, setShowAccount] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [userFullName, setUserFullName] = useState("");
-   const location = useLocation();
-   const hideElementLogin = location.pathname === '/login';
-   const hideElementRegister = location.pathname === '/register';
+  const location = useLocation();
+
+  //when on login or register page, we want to hide navbar so it is not visible
+  const hideElementLogin = location.pathname === '/login';
+  const hideElementRegister = location.pathname === '/register';
 
    const [user, SetUser] = useState({
        email: "",
@@ -21,11 +24,22 @@ const NavBar = () => {
   }
 
   useEffect(()=>{
-        // data is from backend
-        getUserProfile.then((data)=>{
-        setUserFullName(data);
-        })
-    },[])
+    const checkUserProfile = async () => {
+      try {
+        signInAndGetProfile.then((data)=>{
+        setUserFullName(data.fullName);
+        setUserEmail(data.email)
+        setShowAccount(true)
+        console.log(data.fullName)
+        console.log(data.email)
+      })
+      } catch (error) {
+        setShowAccount(false)
+        SetUser(null)
+      }
+    } 
+  checkUserProfile()  
+   },[])
 
   return (
   hideElementLogin || !hideElementRegister && <nav className="relative flex flex-col md:flex-row w-full items-center justify-between px-6 py-4 mb-5 bg-[#F3EFE6] rounded-b-4xl 
@@ -68,11 +82,11 @@ const NavBar = () => {
 
     <a className="hidden"></a>
 
-    <Link
+    { showAccount ? <Link
       to="/login"
       className="ml-auto block text-gray-700 hover:text-red-500 transition-colors">
       Log in
-    </Link>
+    </Link> : <UserProfile userFullName={userFullName}/> }
 
     {/* View if user is logged in
       <Link className="block text-gray-700 hover:text-red-500 transition-colors">

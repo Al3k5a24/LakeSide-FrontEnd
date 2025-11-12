@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signInAccount } from "../../utils/ApiAuth";
 
 const LoginForm = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
+  const navigate = useNavigate();
   const [user, SetUser] = useState({
     email: "",
     password: "",
@@ -28,9 +28,7 @@ const LoginForm = () => {
       if (response.status === 200) {
         setSuccessMessage("Successfully logged in!");
         setErrorMessage("");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        navigate("/")
       } else {
         setErrorMessage("Could not log in account!");
         setSuccessMessage("");

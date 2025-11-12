@@ -44,3 +44,22 @@ export async function getUserProfile(){
         throw new Error("Error fetching user profile")
     }
 }
+
+// combined function to make sure login was successfull before creating user profile
+export async function signInAndGetProfile(userData) {
+    try {
+        // first login
+        const loginResponse = await signInAccount(userData);
+        if (loginResponse===200){
+        // if successfull, start next
+        const userProfile = await getUserProfile()
+        };
+        return {
+            loginResponse,
+            userProfile
+        };
+    } catch (error) {
+        // Ako bilo šta ne uspe, greška se propagira
+        throw error;
+    }
+}
