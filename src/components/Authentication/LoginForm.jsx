@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signInAccount } from "../../utils/ApiAuth";
+import { getUserProfile, signInAccount } from "../../utils/ApiAuth";
 
 const LoginForm = () => {
   const [successMessage, setSuccessMessage] = useState("");
@@ -28,7 +28,13 @@ const LoginForm = () => {
       if (response.status === 200) {
         setSuccessMessage("Successfully logged in!");
         setErrorMessage("");
-        navigate("/")
+        navigate("/");
+        try {
+          const profileData = await getUserProfile()
+          navigate("/", { state: { user: profileData } });
+        } catch (error) {
+          setErrorMessage("Login successful, but failed to load profile");
+        }
       } else {
         setErrorMessage("Could not log in account!");
         setSuccessMessage("");

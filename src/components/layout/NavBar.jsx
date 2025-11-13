@@ -1,45 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { getUserProfile, signInAccount, signInAndGetProfile } from "../../utils/ApiAuth";
 import UserProfile from "../Authentication/UserProfile";
 
 const NavBar = () => {
 
   const [showAccount, setShowAccount] = useState(false);
-  const [userEmail, setUserEmail] = useState("");
-  const [userFullName, setUserFullName] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
   const location = useLocation();
 
   //when on login or register page, we want to hide navbar so it is not visible
   const hideElementLogin = location.pathname === '/login';
   const hideElementRegister = location.pathname === '/register';
 
-   const [user, SetUser] = useState({
-       email: "",
-       fullName: ""
-     });
-  //
-  const handleAccountClick = () => {
-    setShowAccount(!showAccount); //true
-  }
+  // Proveri da li je korisnik ulogovan pri učitavanju komponente
+    useEffect(() => {
+        checkAuthenticationStatus();
+    }, []);
 
-  useEffect(()=>{
-    const checkUserProfile = async () => {
-      try {
-        signInAndGetProfile.then((data)=>{
-        setUserFullName(data.fullName);
-        setUserEmail(data.email)
-        setShowAccount(true)
-        console.log(data.fullName)
-        console.log(data.email)
-      })
-      } catch (error) {
-        setShowAccount(false)
-        SetUser(null)
-      }
-    } 
-  checkUserProfile()  
-   },[])
+    // Proveri authentication status kada se promeni ruta
+    useEffect(() => {
+        checkAuthenticationStatus();
+    }, [location]);
+
+    const checkAuthenticationStatus = async () => {
+        try {
+            setIsLoading(true);
+            const userData = await getUserProfile();
+            setUser(userData);
+        } catch (error) {
+            setUser(null);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
   return (
   hideElementLogin || !hideElementRegister && <nav className="relative flex flex-col md:flex-row w-full items-center justify-between px-6 py-4 mb-5 bg-[#F3EFE6] rounded-b-4xl 
@@ -82,11 +78,16 @@ const NavBar = () => {
 
     <a className="hidden"></a>
 
-    { showAccount ? <Link
+    { isLoading ? 
+    (<div className="w-10 h-10 rounded-full bg-gray-300 animate-pulse"></div>) : user ? (
+      <UserProfile userData={user}/>
+    )
+    :
+    <Link
       to="/login"
       className="ml-auto block text-gray-700 hover:text-red-500 transition-colors">
       Log in
-    </Link> : <UserProfile userFullName={userFullName}/> }
+    </Link> }
 
     {/* View if user is logged in
       <Link className="block text-gray-700 hover:text-red-500 transition-colors">
