@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getUserProfile } from '../../utils/ApiAuth';
 
 const UserProfile = ({userData}) => {
@@ -7,18 +7,22 @@ const UserProfile = ({userData}) => {
     const [firstName, setFirstName]=useState("");
     const [lastName, setLastName]=useState("");
     const [initials, setInitials]=useState("");
-    const [user, setUser] = useState({
-        fullName: "",
-        email: "",
-        firstName: "",
-        lastName: "",
-        initials: ""
-    });
-
+    const [user, setUser] = useState(null);
+    
     useEffect(()=>{
-        if(userData){
-            processUser
+        const checkUserProfile = async () => {
+          try {
+            getUserProfile.then((data)=>{
+            setFullName(data.fullName);
+            setUserEmail(data.email)
+            console.log(data.fullName)
+            console.log(data.email)
+          })
+          } catch (error) {
+            setUser(null)
+          }
         } 
+      checkUserProfile()  
        },[])
 
     //bcs we have full name, in order to make icon from initals

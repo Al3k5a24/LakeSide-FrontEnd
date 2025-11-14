@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { getUserProfile, signInAccount, signInAndGetProfile } from "../../utils/ApiAuth";
+import { Link, matchPath, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { getUserProfile, signInAccount } from "../../utils/ApiAuth";
 import UserProfile from "../Authentication/UserProfile";
 
 const NavBar = () => {
@@ -15,27 +15,26 @@ const NavBar = () => {
   const hideElementLogin = location.pathname === '/login';
   const hideElementRegister = location.pathname === '/register';
 
-  // Proveri da li je korisnik ulogovan pri učitavanju komponente
-    useEffect(() => {
-        checkAuthenticationStatus();
-    }, []);
-
-    // Proveri authentication status kada se promeni ruta
-    useEffect(() => {
-        checkAuthenticationStatus();
-    }, [location]);
-
-    const checkAuthenticationStatus = async () => {
-        try {
-            setIsLoading(true);
-            const userData = await getUserProfile();
-            setUser(userData);
-        } catch (error) {
-            setUser(null);
-        } finally {
-            setIsLoading(false);
-        }
-    };
+  // /p/* will be used for all logged in user routes
+  const match = matchPath("/p/*", location.pathname);
+  console.log(match)
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+    try {
+      if(match){
+      const userData = await getUserProfile();
+      setUser(userData);
+      setIsLoading(false);
+      } else{
+      setUser(null);
+      setIsLoading(true)
+      }
+    } catch (error) {
+      setUser(null);
+    } 
+  };
+  checkAuthStatus()
+  }, [location.pathname]);
 
   return (
   hideElementLogin || !hideElementRegister && <nav className="relative flex flex-col md:flex-row w-full items-center justify-between px-6 py-4 mb-5 bg-[#F3EFE6] rounded-b-4xl 
@@ -70,18 +69,18 @@ const NavBar = () => {
       </NavLink>
     */}
 
-    <NavLink
+     <NavLink
       to="/my-booking"
       className="block text-gray-700 hover:text-red-500 transition-colors">
       Find my Booking
-    </NavLink>
+    </NavLink> 
 
     <a className="hidden"></a>
 
-    { isLoading ? 
-    (<div className="w-10 h-10 rounded-full bg-gray-300 animate-pulse"></div>) : user ? (
-      <UserProfile userData={user}/>
-    )
+    { !isLoading ? 
+    <div className="w-10 h-10 rounded-full bg-gray-300">
+    <UserProfile userData={user}/>
+    </div> 
     :
     <Link
       to="/login"
@@ -89,7 +88,7 @@ const NavBar = () => {
       Log in
     </Link> }
 
-    {/* View if user is logged in
+    {/* /* View if user is logged in
       <Link className="block text-gray-700 hover:text-red-500 transition-colors">
         Profile
       </Link>

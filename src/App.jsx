@@ -12,6 +12,7 @@ import Login from './components/Authentication/LoginPage.jsx'
 import LoginPage from './components/Authentication/LoginPage.jsx'
 import RegisterPage from './components/Authentication/RegisterPage.jsx'
 
+// /p is when user is logged in
 function App() {
 
   return (    
@@ -22,11 +23,15 @@ function App() {
           <main className="App__content">
             <Routes>
               <Route path='/' element={<Home/>}/>
+              <Route path='/p' element={<Home/>}/>
               <Route path='/edit-room/:roomId' element={<EditRoom/>}/>
               <Route path='/existingRooms' element={<ExistingRooms/>}/>
+              <Route path='/p/existingRooms' element={<ExistingRooms/>}/>
               <Route path='/add/new-room' element={<AddRoom/>}/>
               <Route path='/browse-rooms' element={<RoomListing/>}/>
+              <Route path='/p/browse-rooms' element={<RoomListing/>}/>
               <Route path='/browse-rooms/booking/:roomId' element={<BookingRoomPage/>}/>
+              <Route path='/p/browse-rooms/booking/:roomId' element={<BookingRoomPage/>}/>
               <Route path='/login' element={<LoginPage/>}/>
               <Route path='/register' element={<RegisterPage/>}/>
             </Routes>

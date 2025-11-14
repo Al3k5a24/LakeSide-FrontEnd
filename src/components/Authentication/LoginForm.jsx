@@ -28,14 +28,8 @@ const LoginForm = () => {
       if (response.status === 200) {
         setSuccessMessage("Successfully logged in!");
         setErrorMessage("");
-        navigate("/");
-        try {
-          const profileData = await getUserProfile()
-          navigate("/", { state: { user: profileData } });
-        } catch (error) {
-          setErrorMessage("Login successful, but failed to load profile");
-        }
-      } else {
+        // navigate("/p");
+      }else{
         setErrorMessage("Could not log in account!");
         setSuccessMessage("");
       }
