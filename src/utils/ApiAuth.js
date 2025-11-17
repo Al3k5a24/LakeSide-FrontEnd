@@ -3,7 +3,8 @@ import axios from "axios"
 
 //url for website api 
 export const api=axios.create({
-    baseURL :"http://localhost:8080"
+    baseURL :"http://localhost:8080",
+    withCredentials: true  // for cookies to be sent along with requests
 })
 
 export async function createAccount(userData){
