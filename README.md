@@ -35,6 +35,46 @@ A modern web-based hotel room booking platform built with React and Vite. This f
 
 ---
 
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── Authentication/
+│   │   ├── LoginForm.jsx          # Login form with email/password
+│   │   ├── LoginPage.jsx           # Login page wrapper
+│   │   ├── RegisterForm.jsx        # Registration form
+│   │   ├── RegisterPage.jsx        # Registration page wrapper
+│   │   └── UserProfile.jsx         # User avatar with initials
+│   ├── common/
+│   │   ├── RoomFilter.tsx          # Filter rooms by type
+│   │   ├── RoomPaginator.jsx       # Pagination controls
+│   │   └── RoomTypeSelector.jsx    # Room type dropdown with add new option
+│   ├── home/
+│   │   └── Home.jsx                # Welcome/home page
+│   ├── layout/
+│   │   ├── NavBar.jsx              # Navigation bar with auth state
+│   │   └── Footer.jsx              # Footer component
+│   └── room/
+│       ├── AddRoom.jsx             # Form to add new rooms
+│       ├── BookingRoomPage.jsx     # Room booking form
+│       ├── EditRoom.jsx            # Form to edit existing rooms
+│       ├── ExistingRooms.tsx       # Admin table view of all rooms
+│       ├── Room.jsx                # Room listing with filter/pagination
+│       ├── RoomCard.jsx            # Individual room card component
+│       └── RoomListing.jsx        # Room listing page wrapper
+├── utils/
+│   ├── ApiAuth.js                  # Authentication API functions
+│   └── ApiFunctions.js             # Room and booking API functions
+├── assets/                         # Static images and assets
+├── App.jsx                         # Main app component with routing
+├── App.css                         # App-level styles
+├── index.css                       # Global styles and Tailwind imports
+└── main.jsx                        # Application entry point
+```
+
+---
+
 ## Usage
 
 ### For Guests
@@ -82,6 +122,19 @@ npm run preview
 # Run linter
 npm run lint
 ```
+
+### Backend API Endpoints
+The frontend expects the following backend endpoints:
+- `/auth/create-account` - User registration
+- `/auth/sign-in` - User login
+- `/auth/profile` - Get current user profile
+- `/rooms/all-rooms` - Get all rooms
+- `/rooms/room-types` - Get available room types
+- `/rooms/room/:id` - Get room by ID
+- `/rooms/add/new-room` - Create new room
+- `/rooms/update/room/:id` - Update room
+- `/rooms/delete/room/:id` - Delete room
+- `/rooms/browse-rooms/booking/:id` - Book a room
 
 ---
 
