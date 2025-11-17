@@ -17,15 +17,18 @@ const NavBar = () => {
   //when on login or register page, we want to hide navbar so it is not visible
   const hideElementLogin = location.pathname === '/login';
   const hideElementRegister = location.pathname === '/register';
+  const currentURL = window.location.pathname;
 
   // /p/* will be used for all logged in user routes
-  const match = matchPath("/p/*", location.pathname);
+  const match = matchPath("/p/*", currentURL);
+  console.log("Match nav bar:", match);
   useEffect(() => {
     const checkAuthStatus = async () => {
     try {
       if(!match){
       setUser(null);
       setIsLoading(true);
+      return;
       } 
       try {
       setIsLoading(false);
@@ -35,6 +38,7 @@ const NavBar = () => {
       } catch (error) {
       console.error('Error', error);
       setUser(null);
+      navigate("/login");
       } 
     } catch (error) {
       setUser(null);
@@ -42,10 +46,10 @@ const NavBar = () => {
     } 
   };
   checkAuthStatus()
-  }, [location.pathname]);
+  }, [currentURL]);
 
   return (
-  hideElementLogin || !hideElementRegister && <nav className="relative flex flex-col md:flex-row w-full items-center justify-between px-6 py-4 mb-5 bg-[#F3EFE6] rounded-b-4xl 
+  (hideElementLogin || hideElementRegister) ? null : <nav className="relative flex flex-col md:flex-row w-full items-center justify-between px-6 py-4 mb-5 bg-[#F3EFE6] rounded-b-4xl 
   shadow-[0_-4px_16px_-4px_rgba(0,0,0,0.1),0_8px_24px_-6px_rgba(0,0,0,0.35)] mt-3">
   {/* Logo */}
   <div className="flex items-center flex-shrink-0 text-black mr-6">
@@ -85,7 +89,7 @@ const NavBar = () => {
 
     <a className="hidden"></a>
 
-    { !isLoading ? 
+    { !isLoading && user ?
     <div className="w-10 h-10 rounded-full flex items-center justify-center ml-auto bg-gray-300">
     <UserProfile userData={user}/>
     </div> 
