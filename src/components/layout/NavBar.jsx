@@ -7,7 +7,10 @@ const NavBar = () => {
 
   const [showAccount, setShowAccount] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    fullName: "",
+    email: ""
+  });
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -17,20 +20,25 @@ const NavBar = () => {
 
   // /p/* will be used for all logged in user routes
   const match = matchPath("/p/*", location.pathname);
-  console.log(match)
   useEffect(() => {
     const checkAuthStatus = async () => {
     try {
-      if(match){
-      const userData = await getUserProfile();
-      setUser(userData);
-      setIsLoading(false);
-      } else{
+      if(!match){
       setUser(null);
-      setIsLoading(true)
-      }
+      setIsLoading(true);
+      } 
+      try {
+      setIsLoading(false);
+      const data = await getUserProfile()
+      setUser(data);
+      console.log(data);
+      } catch (error) {
+      console.error('Error', error);
+      setUser(null);
+      } 
     } catch (error) {
       setUser(null);
+      navigate("/login");
     } 
   };
   checkAuthStatus()
@@ -78,7 +86,7 @@ const NavBar = () => {
     <a className="hidden"></a>
 
     { !isLoading ? 
-    <div className="w-10 h-10 rounded-full bg-gray-300">
+    <div className="w-10 h-10 rounded-full flex items-center justify-center ml-auto bg-gray-300">
     <UserProfile userData={user}/>
     </div> 
     :

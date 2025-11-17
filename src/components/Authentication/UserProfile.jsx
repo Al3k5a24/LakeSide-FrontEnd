@@ -7,49 +7,34 @@ const UserProfile = ({userData}) => {
     const [firstName, setFirstName]=useState("");
     const [lastName, setLastName]=useState("");
     const [initials, setInitials]=useState("");
-    const [user, setUser] = useState(null);
-    
-    useEffect(()=>{
-        const checkUserProfile = async () => {
-          try {
-            getUserProfile.then((data)=>{
-            setFullName(data.fullName);
-            setUserEmail(data.email)
-            console.log(data.fullName)
-            console.log(data.email)
-          })
-          } catch (error) {
-            setUser(null)
-          }
-        } 
-      checkUserProfile()  
-       },[])
-
     //bcs we have full name, in order to make icon from initals
     //we need to separate first and last name and take initials
+    //set only in useEffect when userData changes, otherwise infinite loop
+    useEffect(() => {
+    if (!userData?.fullName) return;
 
-    const splitName=()=>{
-    const nameParts = fullName.trim.split(' '); //trim white space and split
-    if(nameParts.length===1){
-        //if there is only first name, take first name
-        setFirstName(nameParts[0]); 
-        setLastName("");
-    } else if(nameParts.length>1){
-        setFirstName(nameParts[0])
-        setLastName(nameParts[nameParts.length-1]); //last element 
-    } else {
-        setFirstName("");
-        setLastName("");
-    }};
+    // Split name i take initials
+    const nameParts = userData.fullName.trim().split(' ').filter(Boolean); // filter(Boolean) uklanja prazne stringove
     
-    //create profile avatar from image
-    const ProfileImage=({firstName,lastName})=>{
-        const getInitals = `${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`;
-        setInitials(getInitals);
+    let firstInitial = '';
+    let lastInitial = '';
+
+    if (nameParts.length === 1) {
+      // Just a first name: take first character
+      firstInitial = nameParts[0][0];
+    } else if (nameParts.length > 1) {
+      // Name and surname: take first characters of first and last parts
+      firstInitial = nameParts[0][0];
+      lastInitial = nameParts[nameParts.length - 1][0];
     }
+
+    const initialsStr = `${firstInitial}${lastInitial}`.toUpperCase();
+    setInitials(initialsStr);
+    
+  }, [userData?.fullName]);
     
     return (
-    <div className='w-15 h-15 rounded-full border-y-indigo-400'>
+    <div className='w-10 h-10 rounded-full bg-red-400 flex items-center justify-center text-white font-medium'>
       <span className="avatar-initials">{initials}</span>
     </div>
   )
