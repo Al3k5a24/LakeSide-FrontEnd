@@ -11,7 +11,6 @@ const NavBar = () => {
     fullName: "",
     email: ""
   });
-  const navigate = useNavigate();
   const location = useLocation();
 
   //when on login or register page, we want to hide navbar so it is not visible
@@ -89,9 +88,10 @@ const NavBar = () => {
       </NavLink>
     */}
 
-     <NavLink
+    {/* if user is logged in, show Find my Booking link */}
+      <NavLink
       to="/my-booking"
-      className="block text-gray-700 hover:text-red-500 transition-colors">
+      className={isUserAuth ? `block text-gray-700 hover:text-red-500 transition-colors` : `hidden`}>
       Find my Booking
     </NavLink> 
 
