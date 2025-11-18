@@ -23,15 +23,15 @@ function App() {
           <main className="App__content">
             <Routes>
               <Route path='/' element={<Home/>}/>
-              <Route path='/p' element={<Home/>}/>
+              <Route path='/u' element={<Home/>}/>
               <Route path='/edit-room/:roomId' element={<EditRoom/>}/>
               <Route path='/existingRooms' element={<ExistingRooms/>}/>
-              <Route path='/p/existingRooms' element={<ExistingRooms/>}/>
+              <Route path='/u/existingRooms' element={<ExistingRooms/>}/>
               <Route path='/add/new-room' element={<AddRoom/>}/>
               <Route path='/browse-rooms' element={<RoomListing/>}/>
-              <Route path='/p/browse-rooms' element={<RoomListing/>}/>
+              <Route path='/u/browse-rooms' element={<RoomListing/>}/>
               <Route path='/browse-rooms/booking/:roomId' element={<BookingRoomPage/>}/>
-              <Route path='/p/browse-rooms/booking/:roomId' element={<BookingRoomPage/>}/>
+              <Route path='/u/browse-rooms/booking/:roomId' element={<BookingRoomPage/>}/>
               <Route path='/login' element={<LoginPage/>}/>
               <Route path='/register' element={<RegisterPage/>}/>
             </Routes>

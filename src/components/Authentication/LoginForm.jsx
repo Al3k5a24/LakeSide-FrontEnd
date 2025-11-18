@@ -28,7 +28,7 @@ const LoginForm = () => {
       if (response.status === 200) {
         setSuccessMessage("Successfully logged in!");
         setErrorMessage("");
-        navigate("/p");
+        navigate("/u");
       }else{
         setErrorMessage("Could not log in account!");
         setSuccessMessage("");

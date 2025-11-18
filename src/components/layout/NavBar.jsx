@@ -5,7 +5,7 @@ import UserProfile from "../Authentication/UserProfile";
 
 const NavBar = () => {
 
-  const [showAccount, setShowAccount] = useState(false);
+  const [isUserAuth,setIsUserAuth]=useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState({
     fullName: "",
@@ -20,29 +20,30 @@ const NavBar = () => {
   const currentURL = window.location.pathname;
 
   // /p/* will be used for all logged in user routes
-  const match = matchPath("/p/*", currentURL);
-  console.log("Match nav bar:", match);
+  const match = matchPath("/u/*", currentURL);
   useEffect(() => {
     const checkAuthStatus = async () => {
     try {
+      //if urls do not match, user is not authenticated
       if(!match){
       setUser(null);
       setIsLoading(true);
+      setisUserAuth(false);
       return;
       } 
       try {
       setIsLoading(false);
       const data = await getUserProfile()
       setUser(data);
+      setIsUserAuth(true);  
+      console.log(isUserAuth)
       console.log(data);
       } catch (error) {
       console.error('Error', error);
       setUser(null);
-      navigate("/login");
       } 
     } catch (error) {
       setUser(null);
-      navigate("/login");
     } 
   };
   checkAuthStatus()
@@ -53,11 +54,18 @@ const NavBar = () => {
   shadow-[0_-4px_16px_-4px_rgba(0,0,0,0.1),0_8px_24px_-6px_rgba(0,0,0,0.35)] mt-3">
   {/* Logo */}
   <div className="flex items-center flex-shrink-0 text-black mr-6">
+    {/* Conditional link based on authentication status */}
+    {!isUserAuth ? 
     <Link to="/" className="flex items-center gap-2">
       <span className="text-2xl font-semibold text-red-600 hover:text-red-700 transition-colors">
         lakeSide <span className="text-gray-800">hotel</span>
       </span>
-    </Link>
+    </Link> :
+    <Link to="/u" className="flex items-center gap-2">
+      <span className="text-2xl font-semibold text-red-600 hover:text-red-700 transition-colors">
+        lakeSide <span className="text-gray-800">hotel</span>
+      </span>
+    </Link>}
   </div>
 
   {/* Placeholder for future mobile menu button
