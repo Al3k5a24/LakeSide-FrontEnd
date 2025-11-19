@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { matchPath, Navigate, useNavigate, useParams } from "react-router-dom";
 import { bookRoom, getRoomById } from "../../utils/ApiFunctions";
 import { FaDollarSign } from "react-icons/fa";
+import { getUserProfile } from "../../utils/ApiAuth";
 
 const BookingRoomPage = () => {
   const [error, setError] = useState(null);

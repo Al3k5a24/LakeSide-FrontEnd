@@ -76,12 +76,18 @@ const NavBar = () => {
 
   {/* Navigation Links */}
   <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto mt-4 lg:mt-0 space-y-3 lg:space-y-0 lg:space-x-8 text-lg font-medium">
+    { !isUserAuth ?
     <NavLink
       to="/browse-rooms"
       className="block text-gray-700 hover:text-red-500 transition-colors">
       Browse all Rooms
     </NavLink>
-
+    :
+    <NavLink
+      to="/u/browse-rooms"
+      className="block text-gray-700 hover:text-red-500 transition-colors">
+      Browse all Rooms
+    </NavLink>}
     {/* View if user is logged in
       <NavLink className="block text-gray-700 hover:text-red-500 transition-colors">
         Admin

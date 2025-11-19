@@ -1,9 +1,16 @@
 import React from "react";
 import { Card, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, matchPath, useNavigate } from "react-router-dom";
 
 // cards that will display all rooms
 const RoomCard = ({ room }) => {
+  
+ //check if user is authenticated
+  const currentURL = window.location.pathname
+  const navigate = useNavigate();
+
+  // /p/* will be used for all logged in user routes
+  const match = matchPath("/u/*", currentURL);
   return (
     // Based on id, render a single room card
     <Col key={room.id} className="g-[#F3EFE6] items-center py-4 px-3 rounded-4xl 
@@ -31,12 +38,20 @@ const RoomCard = ({ room }) => {
             </Card.Text>
           </div>
 
+          {/* If user is not authenticated, redirect to login page on book now click
+          Do not allow user to book room if not logged in */}
           <div className="flex-1 relative">
+            { match ? 
             <Link
               to={`booking/${room.id}`}
               className="absolute top-1/3 right-3 px-4 py-2 bg-red-500 hover:bg-red-700 text-white font-medium rounded-lg shadow-md whitespace-nowrap transition duration-200">
               Book now
-            </Link>
+            </Link> :
+            <Link
+              to={`/login`}
+              className="absolute top-1/3 right-3 px-4 py-2 bg-red-500 hover:bg-red-700 text-white font-medium rounded-lg shadow-md whitespace-nowrap transition duration-200">
+              Book now
+            </Link>}
           </div>
         </Card.Body>
       </Card>
