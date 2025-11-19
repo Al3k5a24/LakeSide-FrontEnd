@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getUserProfile, signInAccount } from "../../utils/ApiAuth";
 
 const LoginForm = () => {
@@ -10,6 +10,10 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
+  const location = useLocation();
+
+  // Take URL from location.state or from homepage
+  const from = location.state?.from || '/u'; 
 
   const handleEmailInputChange = (e) => {
     const value = e.target.value;
@@ -28,7 +32,13 @@ const LoginForm = () => {
       if (response.status === 200) {
         setSuccessMessage("Successfully logged in!");
         setErrorMessage("");
-        navigate("/u");
+        if (from) {
+        // If user came from another page, redirect back to that page
+        navigate(from, { replace: true });
+      }else{
+        // If user came from homepage or no specific page, redirect to user dashboard
+        navigate("/u", { replace: true });
+      }
       }else{
         setErrorMessage("Could not log in account!");
         setSuccessMessage("");

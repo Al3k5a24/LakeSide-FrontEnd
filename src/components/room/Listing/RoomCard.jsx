@@ -1,20 +1,26 @@
 import React from "react";
 import { Card, Col } from "react-bootstrap";
-import { Link, matchPath, useNavigate } from "react-router-dom";
+import { Link, matchPath, useLocation, useNavigate } from "react-router-dom";
 
 // cards that will display all rooms
 const RoomCard = ({ room }) => {
-  
- //check if user is authenticated
-  const currentURL = window.location.pathname
-  const navigate = useNavigate();
-
+  //check if user is authenticated
+  const currentURL = window.location.pathname;
+  const location = useLocation();
   // /p/* will be used for all logged in user routes
   const match = matchPath("/u/*", currentURL);
+
+  //paths where user should be redirected on book now click
+  const intendedDestination = match 
+    ? `browse-rooms/booking/${room.id}` 
+    : `/u/browse-rooms/booking/${room.id}`;
   return (
     // Based on id, render a single room card
-    <Col key={room.id} className="g-[#F3EFE6] items-center py-4 px-3 rounded-4xl 
-    shadow-xl inset-shadow-sm inset-shadow-gray-400 space-y-5">
+    <Col
+      key={room.id}
+      className="g-[#F3EFE6] items-center py-4 px-3 rounded-4xl 
+    shadow-xl inset-shadow-sm inset-shadow-gray-400 space-y-5"
+    >
       <Card className="space-y-3">
         <Card.Body className="flex space-x-4 bg-gray-100">
           <div className="inline-flex">
@@ -31,7 +37,8 @@ const RoomCard = ({ room }) => {
               {room.roomType}
             </Card.Title>
             <Card.Title className="text-xl text-red-500 font-semibold">
-              $ {room.roomPrice}<span className="text-black"> / night</span>
+              $ {room.roomPrice}
+              <span className="text-black"> / night</span>
             </Card.Title>
             <Card.Text className="text-gray-600 text-center max-w-md">
               Some room information should be displayed here
@@ -41,17 +48,24 @@ const RoomCard = ({ room }) => {
           {/* If user is not authenticated, redirect to login page on book now click
           Do not allow user to book room if not logged in */}
           <div className="flex-1 relative">
-            { match ? 
-            <Link
-              to={`booking/${room.id}`}
-              className="absolute top-1/3 right-3 px-4 py-2 bg-red-500 hover:bg-red-700 text-white font-medium rounded-lg shadow-md whitespace-nowrap transition duration-200">
-              Book now
-            </Link> :
-            <Link
-              to={`/login`}
-              className="absolute top-1/3 right-3 px-4 py-2 bg-red-500 hover:bg-red-700 text-white font-medium rounded-lg shadow-md whitespace-nowrap transition duration-200">
-              Book now
-            </Link>}
+            {match ? (
+              <Link
+                to={`booking/${room.id}`}
+                className="absolute top-1/3 right-3 px-4 py-2 bg-red-500 hover:bg-red-700 text-white font-medium rounded-lg shadow-md whitespace-nowrap transition duration-200"
+              >
+                Book now
+              </Link>
+            ) : (
+              <Link
+                to="/login"
+                //remember the page user was on before being redirected to login
+                //on successful login, redirect back to this page
+                state={{ from: intendedDestination }}
+                className="absolute top-1/3 right-3 px-4 py-2 bg-red-500 hover:bg-red-700 text-white font-medium rounded-lg shadow-md whitespace-nowrap transition duration-200"
+              >
+                Book now
+              </Link>
+            )}
           </div>
         </Card.Body>
       </Card>
