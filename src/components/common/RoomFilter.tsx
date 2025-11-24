@@ -24,10 +24,10 @@ const RoomFilter = ({data,setFilteredData}) => {
     const roomTypes=[...new Set((data || []).map((room)=>room.roomType))]
 
   return (
-    <div className="flex flex-row gap-3 rounded-lg items-center shadow-md w-full max-w-xl">
+    <div className="flex flex-row gap-3 rounded-lg items-center justify-center w-full max-w-xl p-3">
       <span
         id="room-type-filter"
-        className="text-gray-800 p-3 text-xl whitespace-nowrap font-medium">
+        className="text-gray-800 text-xl whitespace-nowrap font-medium">
         Filter rooms by type
       </span>
       <select

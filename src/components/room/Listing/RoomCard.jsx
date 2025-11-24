@@ -18,11 +18,11 @@ const RoomCard = ({ room }) => {
     // Based on id, render a single room card
     <Col
       key={room.id}
-      className="g-[#F3EFE6] items-center py-4 px-3 rounded-4xl 
+      className="bg-white items-center py-4 px-3 rounded-4xl 
     shadow-xl inset-shadow-sm inset-shadow-gray-400 space-y-5"
     >
       <Card className="space-y-3">
-        <Card.Body className="flex space-x-4 bg-gray-100">
+        <Card.Body className="flex space-x-4">
           <div className="inline-flex">
             <Card.Img
               variant="top"

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { getRoomTypes } from '../../utils/ApiFunctions'
 
+// eslint-disable-next-line react/prop-types
 const RoomTypeSelector = ({handleRoomInputChange,newRoom,value}) => {
 
     const[roomTypes,setRoomTypes]=useState([""])
     const[showNewRoomTypeInput,setShowNewRoomTypeInput]=useState(false)
     const[newRoomType,setNewRoomType]=useState("")
-    const selectedValue = value || newRoom?.roomType || "";
+    // eslint-disable-next-line react/prop-types
+    const selectedValue = value || (newRoom?.roomType) || "";
 
     //if user wants to enter new room type
     useEffect(()=>{
@@ -38,7 +40,7 @@ const RoomTypeSelector = ({handleRoomInputChange,newRoom,value}) => {
 
   return (
     <>
-      {roomTypes.length>0 && (
+      {roomTypes.length>=0 && (
         <div>
           <select className='block w-2xs appearance-none rounded-md bg-black/5 py-1.5 
           pr-12 pl-3 text-base outline-1 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { matchPath, Navigate, useNavigate, useParams } from "react-router-dom";
 import { bookRoom, getRoomById } from "../../utils/ApiFunctions";
 import { FaDollarSign } from "react-icons/fa";
-import { getUserProfile } from "../../utils/ApiAuth";
 
 const BookingRoomPage = () => {
   const [error, setError] = useState(null);
@@ -140,7 +139,7 @@ const BookingRoomPage = () => {
   }}
 
   return (
-    <section className="grid grid-cols-2 gap-4 bg-white rounded-4xl">
+    <section className="grid grid-cols-2 gap-4  rounded-4xl">
       <div className="flex flex-col items-start justify-between space-y-2.5 p-4">
         {imagePreview && (
           <img
@@ -156,7 +155,7 @@ const BookingRoomPage = () => {
           <span className="text-2xl font-bold">
             Price: <FaDollarSign className="inline-block mb-1" />
           </span>
-          <p className="font-semibold font-sans px-4 py-1 rounded-xl bg-red-400/50 text-white">
+          <p className="font-semibold font-sans px-4 py-1 rounded-xl text-red">
             {room.roomPrice} / night
           </p>
         </div>
@@ -165,7 +164,7 @@ const BookingRoomPage = () => {
         </p>
       </div>
 
-      <div className="flex flex-col items-start justify-between bg-[#F3EFE6] rounded-b-4xl shadow-[0_-4px_8px_-4px_rgba(0,0,0,0.1),0_8px_8px_-6px_rgba(0,0,0,0.35)] p-6">
+      <div className="flex flex-col items-start justify-between bg-white rounded-b-4xl shadow-[0_-4px_8px_-4px_rgba(0,0,0,0.1),0_8px_8px_-6px_rgba(0,0,0,0.35)] p-6">
         <h2 className="text-3xl font-bold mb-6">Make a Reservation:</h2>
         {/* //displays success message if there is any */}
                 {successMessage &&(

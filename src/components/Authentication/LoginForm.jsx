@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState } from "react";
+import React, {useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { getUserProfile, signInAccount } from "../../utils/ApiAuth";
+import {signInAccount } from "../../utils/ApiAuth";
 
 const LoginForm = () => {
   const [successMessage, setSuccessMessage] = useState("");
@@ -52,7 +52,7 @@ const LoginForm = () => {
     <div className="w-full max-w-lg max-h-full rounded-lg bg-gray-50 border border-gray-200 p-4 mx-2">
       <form
         onSubmit={handleSubmit}
-        className="bg-[#F3EFE6] items-center py-4 px-3 rounded-3xl inset-shadow-sm inset-shadow-gray-400 drop-shadow-xl/40 space-y-3"
+        className="bg-white items-center py-4 px-3 rounded-3xl inset-shadow-sm inset-shadow-gray-400 drop-shadow-xl/40 space-y-3"
       >
         <div className="py-4 flex justify-center">
           <img
@@ -128,7 +128,7 @@ const LoginForm = () => {
         <div className="flex flex-row items-center justify-center">
           <Link to={"/register"}>
             <p className="text-sm text-gray-400 hover:text-red-500">
-              Haven't created an account yet?
+              Have not created an account yet?
             </p>
           </Link>
         </div>

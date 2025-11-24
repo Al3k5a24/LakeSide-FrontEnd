@@ -10,6 +10,7 @@ import RoomListing from './components/room/Listing/RoomListing.jsx'
 import BookingRoomPage from './components/room/BookingRoomPage.jsx'
 import LoginPage from './components/Authentication/LoginPage.jsx'
 import RegisterPage from './components/Authentication/RegisterPage.jsx'
+import React from 'react'
 
 // /p is when user is logged in
 function App() {
