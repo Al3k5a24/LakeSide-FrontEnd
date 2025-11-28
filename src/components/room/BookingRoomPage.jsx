@@ -25,25 +25,11 @@ const BookingRoomPage = () => {
 
   //defining new room object
   const [bookedRoom, setBookedRoom] = useState({
-    guestFullName: "",
-    guestEmail: "",
     numOfAdults: 0,
     numOfChildren: 0,
     checkInDate: null,
     checkOutDate: null,
   });
-
-  //function to handle full name input change
-  const handleFullnameChange = (e) => {
-    const value = e.target.value;
-    setBookedRoom({ ...bookedRoom, guestFullName: value });
-  }
-
-   //function to handle email input change
-  const handleEmailChange = (e) => {
-    const value = e.target.value;
-    setBookedRoom({ ...bookedRoom, guestEmail: value });
-  }
 
   //function to handle number of adults input change
   const handleNumOfAdultsChange = (e) =>{
@@ -181,33 +167,6 @@ const BookingRoomPage = () => {
                 )}
         
         <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6 w-full">
-          {/* <!-- Full Name --> */}
-          <div className="flex flex-col items-start">
-            <label className="mb-2 font-medium">Full name:</label>
-            <input
-            value={bookedRoom.guestFullName}
-            onChange={handleFullnameChange}
-              id="guestFullName"
-              name="guestFullName"
-              className="border border-black rounded-lg px-4 py-2.5 w-full"
-              type="text"
-              placeholder="Enter Full name here"
-            />
-          </div>
-
-          {/* <!-- Email Address --> */}
-          <div className="flex flex-col items-start">
-            <label className="mb-2 font-medium">E-Mail address:</label>
-            <input
-            value={bookedRoom.guestEmail}
-            onChange={handleEmailChange}
-              id="guestEmail"
-              name="guestEmail"
-              className="border border-black rounded-lg px-4 py-2.5 w-full"
-              type="email"
-              placeholder="Enter E-Mail address here"
-            />
-          </div>
 
           {/* <!-- Number of Adults --> */}
           <div className="flex flex-col items-start">

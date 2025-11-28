@@ -76,8 +76,6 @@ export async function getRoomById(roomId){
 export async function bookRoom(roomId, bookingData){
     try {
         const formData=new FormData()
-        formData.append("guestFullName",bookingData.guestFullName)
-        formData.append("guestEmail",bookingData.guestEmail)
         formData.append("numOfAdults",bookingData.numOfAdults)
         formData.append("numOfChildren",bookingData.numOfChildren)
         formData.append("checkInDate",bookingData.checkInDate)
