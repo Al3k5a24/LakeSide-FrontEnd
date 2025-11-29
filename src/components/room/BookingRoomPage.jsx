@@ -166,8 +166,10 @@ const BookingRoomPage = () => {
                     </div>
                 )}
         
-        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6 w-full">
-
+        <form onSubmit={handleSubmit} 
+        className="grid grid-cols-2 grid-rows-auto gap-4 w-full"
+        style={{gridAutoRows: 'min-content'}}>
+        
           {/* <!-- Number of Adults --> */}
           <div className="flex flex-col items-start">
             <label className="mb-2 font-medium">Number of adults:</label>
