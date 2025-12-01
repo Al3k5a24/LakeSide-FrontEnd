@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, matchPath, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { getUserProfile, signInAccount } from "../../utils/ApiAuth";
+import { Link, matchPath, NavLink, useLocation } from "react-router-dom";
+import { getUserProfile} from "../../utils/ApiAuth";
 import UserProfile from "../Authentication/UserProfile";
 
 const NavBar = () => {
@@ -27,7 +27,7 @@ const NavBar = () => {
       if(!match){
       setUser(null);
       setIsLoading(true);
-      setisUserAuth(false);
+      setIsUserAuth(false);
       return;
       } 
       try {
@@ -96,7 +96,7 @@ const NavBar = () => {
 
     {/* if user is logged in, show Find my Booking link */}
       <NavLink
-      to="/my-booking"
+      to="/u/my-booking"
       className={isUserAuth ? `block text-gray-700 hover:text-red-500 transition-colors` : `hidden`}>
       Find my Booking
     </NavLink> 

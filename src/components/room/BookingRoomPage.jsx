@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { matchPath, Navigate, useNavigate, useParams } from "react-router-dom";
+import { Link, matchPath, Navigate, useNavigate, useParams } from "react-router-dom";
 import { bookRoom, getRoomById } from "../../utils/ApiFunctions";
 import { FaDollarSign } from "react-icons/fa";
 
@@ -231,13 +231,14 @@ const BookingRoomPage = () => {
 
           {/* <!-- Submit Button --> */}
           <div className="flex justify-center col-span-2 mt-2">
-            <button
+            <Link
+            to={"/u/my-booking"}
               type="submit"
               className="px-11 py-2.5 text-base font-medium text-white bg-red-700 hover:bg-red-800
                focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg dark:bg-red-600
                 dark:hover:bg-red-700 dark:focus:ring-red-800 transition-colors">
               Submit
-            </button>
+            </Link>
           </div>
         </form>
       </div>

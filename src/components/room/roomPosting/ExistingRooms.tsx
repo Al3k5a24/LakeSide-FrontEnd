@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
-import RoomFilter from '../common/RoomFilter.js'
-import RoomPaginator from '../common/RoomPaginator.jsx'
-import { getAllRooms, deleteRoom } from '../../utils/ApiFunctions.js'
+import RoomFilter from '../../common/RoomFilter.js'
+import RoomPaginator from '../../common/RoomPaginator.jsx'
+import { getAllRooms, deleteRoom } from '../../../utils/ApiFunctions.js'
 import { FaTrashAlt,FaEye, FaEdit } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
