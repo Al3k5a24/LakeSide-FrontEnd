@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link, matchPath, Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { bookRoom, getRoomById } from "../../utils/ApiFunctions";
 import { FaDollarSign } from "react-icons/fa";
+import { Button } from "react-bootstrap";
 
 const BookingRoomPage = () => {
   const [error, setError] = useState(null);
@@ -16,6 +17,8 @@ const BookingRoomPage = () => {
 
   //get roomId from URL so we can fetch the room data and update
   const { roomId } = useParams();
+
+  const navigate = useNavigate();
 
   const [room, setRoom] = useState({
     roomType: "",
@@ -113,9 +116,7 @@ const BookingRoomPage = () => {
     if(response.status === 200){
       setSuccessMessage("Room booked successfully!");
       setErrorMessage("");
-      setTimeout(() => {
-      window.location.reload();
-      }, 1000);
+      navigate("/u/browse-rooms")
     }else{
       setErrorMessage("Failed to book room. Please try again.");
       setSuccessMessage("");
@@ -231,14 +232,13 @@ const BookingRoomPage = () => {
 
           {/* <!-- Submit Button --> */}
           <div className="flex justify-center col-span-2 mt-2">
-            <Link
-            to={"/u/my-booking"}
+            <Button
               type="submit"
               className="px-11 py-2.5 text-base font-medium text-white bg-red-700 hover:bg-red-800
                focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg dark:bg-red-600
                 dark:hover:bg-red-700 dark:focus:ring-red-800 transition-colors">
               Submit
-            </Link>
+            </Button>
           </div>
         </form>
       </div>
