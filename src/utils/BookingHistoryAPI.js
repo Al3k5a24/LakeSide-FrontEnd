@@ -11,14 +11,7 @@ export const api=axios.create({
 export async function getMyBookedRooms(){
     try{
         const result = await api.get("/my-bookings/all-booked-Rooms")
-        return {
-            checkInDate:result.data.checkInDate,
-            checkOutDate:result.data.checkOutDate,
-            totalNumOfGuests:result.data.totalNumOfGuests,
-            roomType:result.data.bookedRoomType,
-            roomPrice:result.data.totalPrice,
-            status:result.data.status
-        }
+        return result.data
     }catch(error){
         throw new Error("Error fetching rooms")
     }

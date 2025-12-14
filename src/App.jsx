@@ -11,7 +11,7 @@ import BookingRoomPage from './components/room/BookingRoomPage.jsx'
 import LoginPage from './components/Authentication/LoginPage.jsx'
 import RegisterPage from './components/Authentication/RegisterPage.jsx'
 import React from 'react'
-import MyBRoomListing from './components/room/myBookings/MyBRoomListing.jsx'
+import MyBRoom from './components/room/myBookings/MyBRoom.jsx'
 
 // /p is when user is logged in
 function App() {
@@ -38,7 +38,7 @@ function App() {
               <Route path='/u/existingRooms' element={<ExistingRooms/>}/>
               <Route path='/u/browse-rooms' element={<RoomListing/>}/>
               <Route path='/u/browse-rooms/booking/:roomId' element={<BookingRoomPage/>}/>
-              <Route path='/u/my-booking' element={<MyBRoomListing/>}/>
+              <Route path='/u/my-booking' element={<MyBRoom/>}/>
             </Routes>
           </main>
         </div>
