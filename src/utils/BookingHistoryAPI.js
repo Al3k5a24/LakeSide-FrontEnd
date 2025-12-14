@@ -10,8 +10,15 @@ export const api=axios.create({
 //function to fetch data from backend which will be used to display all rooms
 export async function getMyBookedRooms(){
     try{
-        const result = await api.get("/rooms/all-rooms")
-        return result.data
+        const result = await api.get("/my-bookings/all-booked-Rooms")
+        return {
+            checkInDate:result.data.checkInDate,
+            checkOutDate:result.data.checkOutDate,
+            totalNumOfGuests:result.data.totalNumOfGuests,
+            roomType:result.data.bookedRoomType,
+            roomPrice:result.data.totalPrice,
+            status:result.data.status
+        }
     }catch(error){
         throw new Error("Error fetching rooms")
     }

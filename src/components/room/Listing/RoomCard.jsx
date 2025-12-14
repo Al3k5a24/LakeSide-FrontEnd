@@ -1,12 +1,11 @@
 import React from "react";
 import { Card, Col } from "react-bootstrap";
-import { Link, matchPath, useLocation, useNavigate } from "react-router-dom";
+import { Link, matchPath } from "react-router-dom";
 
 // cards that will display all rooms
 const RoomCard = ({ room }) => {
   //check if user is authenticated
   const currentURL = window.location.pathname;
-  const location = useLocation();
   // /p/* will be used for all logged in user routes
   const match = matchPath("/u/*", currentURL);
 

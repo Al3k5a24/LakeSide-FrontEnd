@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { getAllRooms } from '../../../utils/ApiFunctions'
 import { Col, Container, Row } from 'react-bootstrap'
 import RoomCard from './MyBRoomCard'
 import RoomFilter from '../../common/RoomFilter'
 import RoomPaginator from '../../common/RoomPaginator'
+import { getMyBookedRooms } from '../../../utils/BookingHistoryAPI'
 
 const MyBRoom = () => {
     const[data,setData]=useState([])
@@ -17,7 +17,7 @@ const MyBRoom = () => {
     useEffect(()=>{
         setIsLoading(true)
         //getAllRooms is defined in utils/ApiFunctions.js
-        getAllRooms().then((data)=>{
+        getMyBookedRooms().then((data)=>{
             setData(data)
             setFilteredData(data)
             setIsLoading(false)
