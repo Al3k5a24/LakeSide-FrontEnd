@@ -1,130 +1,269 @@
 import React, { useEffect, useState } from "react";
 import { Link, matchPath, NavLink, useLocation } from "react-router-dom";
-import { getUserProfile} from "../../utils/ApiAuth";
+import { getUserProfile } from "../../utils/ApiAuth";
 import UserProfile from "../Authentication/UserProfile";
 
 const NavBar = () => {
-
-  const [isUserAuth,setIsUserAuth]=useState(false);
+  const [isUserAuth, setIsUserAuth] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [user, setUser] = useState({
     fullName: "",
     email: ""
   });
   const location = useLocation();
 
-  //when on login or register page, we want to hide navbar so it is not visible
   const hideElementLogin = location.pathname === '/login';
   const hideElementRegister = location.pathname === '/register';
   const currentURL = window.location.pathname;
 
-  // /p/* will be used for all logged in user routes
   const match = matchPath("/u/*", currentURL);
+
   useEffect(() => {
     const checkAuthStatus = async () => {
-    try {
-      //if urls do not match, user is not authenticated
-      if(!match){
-      setUser(null);
-      setIsLoading(true);
-      setIsUserAuth(false);
-      return;
-      } 
       try {
-      setIsLoading(false);
-      const data = await getUserProfile()
-      setUser(data);
-      setIsUserAuth(true);  
-      console.log(isUserAuth)
-      console.log(data);
+        if (!match) {
+          setUser(null);
+          setIsLoading(false);
+          setIsUserAuth(false);
+          return;
+        }
+        try {
+          setIsLoading(false);
+          const data = await getUserProfile();
+          setUser(data);
+          setIsUserAuth(true);
+        } catch (error) {
+          console.error('Error', error);
+          setUser(null);
+          setIsLoading(false);
+        }
       } catch (error) {
-      console.error('Error', error);
-      setUser(null);
-      } 
-    } catch (error) {
-      setUser(null);
-    } 
-  };
-  checkAuthStatus()
-  }, [currentURL]);
+        setUser(null);
+        setIsLoading(false);
+      }
+    };
+    checkAuthStatus();
+  }, [currentURL, match]);
+
+  if (hideElementLogin || hideElementRegister) return null;
 
   return (
-  (hideElementLogin || hideElementRegister) ? null : <nav className="relative flex flex-col md:flex-row w-full items-center justify-between px-6 py-4 mb-5 bg-white rounded-b-4xl 
-  shadow-[0_-4px_16px_-4px_rgba(0,0,0,0.1),0_8px_24px_-6px_rgba(0,0,0,0.35)] mt-3">
-  {/* Logo */}
-  <div className="flex items-center flex-shrink-0 text-black mr-6">
-    {/* Conditional link based on authentication status */}
-    {!isUserAuth ? 
-    <Link to="/" className="flex items-center gap-2">
-      <span className="text-2xl font-semibold text-red-600 hover:text-red-700 transition-colors">
-        lakeSide <span className="text-gray-800">hotel</span>
-      </span>
-    </Link> :
-    <Link to="/u" className="flex items-center gap-2">
-      <span className="text-2xl font-semibold text-red-600 hover:text-red-700 transition-colors">
-        lakeSide <span className="text-gray-800">hotel</span>
-      </span>
-    </Link>}
-  </div>
+    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            {!isUserAuth ? (
+              <Link to="/" className="flex items-center group">
+                <svg className="w-8 h-8 text-red-500 mr-2 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                <span className="text-2xl font-bold">
+                  <span className="text-red-500 group-hover:text-red-600 transition-colors">lakeSide</span>
+                  <span className="text-gray-900 ml-1">hotel</span>
+                </span>
+              </Link>
+            ) : (
+              <Link to="/u" className="flex items-center group">
+                <svg className="w-8 h-8 text-red-500 mr-2 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                <span className="text-2xl font-bold">
+                  <span className="text-red-500 group-hover:text-red-600 transition-colors">lakeSide</span>
+                  <span className="text-gray-900 ml-1">hotel</span>
+                </span>
+              </Link>
+            )}
+          </div>
 
-  {/* Placeholder for future mobile menu button
-  <button className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors">
-    <span className="block w-6 h-0.5 bg-gray-700 mb-1"></span>
-    <span className="block w-6 h-0.5 bg-gray-700 mb-1"></span>
-    <span className="block w-4 h-0.5 bg-gray-700"></span>
-  </button> */}
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            {!isUserAuth ? (
+              <NavLink
+                to="/browse-rooms"
+                className={({ isActive }) =>
+                  `text-sm font-medium transition-all duration-300 relative group ${
+                    isActive ? 'text-red-500' : 'text-gray-700 hover:text-red-500'
+                  }`
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    Browse Rooms
+                    <span className={`absolute -bottom-1 left-0 h-0.5 bg-red-500 transition-all duration-300 ${
+                      isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                    }`}></span>
+                  </>
+                )}
+              </NavLink>
+            ) : (
+              <>
+                <NavLink
+                  to="/u/browse-rooms"
+                  className={({ isActive }) =>
+                    `text-sm font-medium transition-all duration-300 relative group ${
+                      isActive ? 'text-red-500' : 'text-gray-700 hover:text-red-500'
+                    }`
+                  }
+                >
+                  {({ isActive }) => (
+                    <>
+                      Browse Rooms
+                      <span className={`absolute -bottom-1 left-0 h-0.5 bg-red-500 transition-all duration-300 ${
+                        isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                      }`}></span>
+                    </>
+                  )}
+                </NavLink>
 
-  {/* Navigation Links */}
-  <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto mt-4 lg:mt-0 space-y-3 lg:space-y-0 lg:space-x-8 text-lg font-medium">
-    { !isUserAuth ?
-    <NavLink
-      to="/browse-rooms"
-      className="block text-gray-700 hover:text-red-500 transition-colors">
-      Browse all Rooms
-    </NavLink>
-    :
-    <NavLink
-      to="/u/browse-rooms"
-      className="block text-gray-700 hover:text-red-500 transition-colors">
-      Browse all Rooms
-    </NavLink>}
-    {/* View if user is logged in
-      <NavLink className="block text-gray-700 hover:text-red-500 transition-colors">
-        Admin
-      </NavLink>
-    */}
+                <NavLink
+                  to="/u/my-booking"
+                  className={({ isActive }) =>
+                    `text-sm font-medium transition-all duration-300 relative group ${
+                      isActive ? 'text-red-500' : 'text-gray-700 hover:text-red-500'
+                    }`
+                  }
+                >
+                  {({ isActive }) => (
+                    <>
+                      My Bookings
+                      <span className={`absolute -bottom-1 left-0 h-0.5 bg-red-500 transition-all duration-300 ${
+                        isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                      }`}></span>
+                    </>
+                  )}
+                </NavLink>
+              </>
+            )}
+          </div>
 
-    {/* if user is logged in, show Find my Booking link */}
-      <NavLink
-      to="/u/my-booking"
-      className={isUserAuth ? `block text-gray-700 hover:text-red-500 transition-colors` : `hidden`}>
-      Find my Booking
-    </NavLink> 
+          {/* Right Side - User Profile or Login */}
+          <div className="hidden md:flex items-center">
+            {!isLoading && user ? (
+              <div className="flex items-center space-x-3">
+                <div className="text-right">
+                  <p className="text-sm font-medium text-gray-900">{user.fullName}</p>
+                  <p className="text-xs text-gray-500">{user.email}</p>
+                </div>
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center ring-2 ring-red-100 hover:ring-red-200 transition-all cursor-pointer">
+                  <UserProfile userData={user} />
+                </div>
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white text-sm font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
+              >
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                </svg>
+                Log In
+              </Link>
+            )}
+          </div>
 
-    <a className="hidden"></a>
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="inline-flex items-center justify-center p-2 rounded-lg text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors"
+            >
+              <span className="sr-only">Open menu</span>
+              {!isMobileMenuOpen ? (
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              ) : (
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
 
-    { !isLoading && user ?
-    <div className="w-10 h-10 rounded-full flex items-center justify-center ml-auto bg-gray-300">
-    <UserProfile userData={user}/>
-    </div> 
-    :
-    <Link
-      to="/login"
-      className="ml-auto block text-gray-700 hover:text-red-500 transition-colors">
-      Log in
-    </Link> }
+      {/* Mobile menu */}
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          isMobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        }`}
+      >
+        <div className="px-4 pt-2 pb-4 space-y-2 bg-white border-t border-gray-100">
+          {!isUserAuth ? (
+            <NavLink
+              to="/browse-rooms"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={({ isActive }) =>
+                `block px-4 py-2 rounded-lg text-base font-medium transition-colors ${
+                  isActive
+                    ? 'bg-red-50 text-red-500'
+                    : 'text-gray-700 hover:bg-gray-50 hover:text-red-500'
+                }`
+              }
+            >
+              Browse Rooms
+            </NavLink>
+          ) : (
+            <>
+              <NavLink
+                to="/u/browse-rooms"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={({ isActive }) =>
+                  `block px-4 py-2 rounded-lg text-base font-medium transition-colors ${
+                    isActive
+                      ? 'bg-red-50 text-red-500'
+                      : 'text-gray-700 hover:bg-gray-50 hover:text-red-500'
+                  }`
+                }
+              >
+                Browse Rooms
+              </NavLink>
 
-    {/* /* View if user is logged in
-      <Link className="block text-gray-700 hover:text-red-500 transition-colors">
-        Profile
-      </Link>
-      <Link className="block text-gray-700 hover:text-red-500 transition-colors">
-        Log out
-      </Link>
-    */}
-  </div>
-</nav>
+              <NavLink
+                to="/u/my-booking"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={({ isActive }) =>
+                  `block px-4 py-2 rounded-lg text-base font-medium transition-colors ${
+                    isActive
+                      ? 'bg-red-50 text-red-500'
+                      : 'text-gray-700 hover:bg-gray-50 hover:text-red-500'
+                  }`
+                }
+              >
+                My Bookings
+              </NavLink>
+            </>
+          )}
 
+          {/* Mobile User Section */}
+          <div className="pt-4 border-t border-gray-100">
+            {!isLoading && user ? (
+              <div className="px-4 py-2">
+                <div className="flex items-center space-x-3 mb-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center">
+                    <UserProfile userData={user} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">{user.fullName}</p>
+                    <p className="text-xs text-gray-500">{user.email}</p>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block mx-4 px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white text-center text-sm font-medium rounded-lg shadow-md"
+              >
+                Log In
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+    </nav>
   );
 };
 
