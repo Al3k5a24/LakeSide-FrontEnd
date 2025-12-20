@@ -42,6 +42,16 @@ A modern web-based hotel room booking platform built with React and Vite. This f
 
 ---
 
+## Screenshots
+
+<p align="center">
+  <img src="/pictures/BrowseRooms-1.png" width="700"/>
+  <img src="/pictures/BrowseRooms-2.png" width="700"/>
+  <img src="/pictures/BooRoomPage.png" width="700"/>
+  <img src="/pictures/MyBookings.png" width="700"/>
+</p>
+
+
 ## Project Structure
 
 ```
