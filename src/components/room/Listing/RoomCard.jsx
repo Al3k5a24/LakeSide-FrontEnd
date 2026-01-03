@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Col } from "react-bootstrap";
-import { Link, matchPath } from "react-router-dom";
+import { Link, matchPath, useLocation } from "react-router-dom";
 
 const RoomCard = ({ room }) => {
-  const currentURL = window.location.pathname;
-  const match = matchPath("/u/*", currentURL);
+  const location = useLocation();
+  
+  // Memoize match to prevent unnecessary recalculations - only recalculate when pathname changes
+  const match = useMemo(() => matchPath("/u/*", location.pathname), [location.pathname]);
 
   const intendedDestination = match 
     ? `browse-rooms/booking/${room.id}` 

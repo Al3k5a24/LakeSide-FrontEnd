@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { getMyBookedRooms } from '../../../utils/BookingHistoryAPI'
+import { getUserProfile } from '../../../utils/ApiAuth'
+import { matchPath, useLocation } from 'react-router-dom'
 
 const MyBRoom = () => {
     const [bRoomsData, setBRoomsData] = useState([])
@@ -8,9 +10,50 @@ const MyBRoom = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [roomsPerPage] = useState(6)
 
-    useEffect(() => {
-        setIsLoading(true)
-        getMyBookedRooms()
+    const [isUserAuth, setIsUserAuth] = useState(false);
+  const [user, setUser] = useState({
+    fullName: "",
+    email: ""
+  });
+  const location = useLocation();
+  
+  // Memoize match to prevent unnecessary recalculations - only recalculate when pathname changes
+  const match = useMemo(() => matchPath("/u/*", location.pathname), [location.pathname]);
+
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        if (!match) {
+          setUser(null);
+          setIsLoading(false);
+          setIsUserAuth(false);
+          return;
+        }
+        
+        // Prevent calling getUserProfile if user is already loaded
+        if (user && user.fullName && user.email) {
+          setIsUserAuth(true);
+          // Still fetch bookings if not loaded yet
+          if (bRoomsData.length === 0) {
+            getMyBookedRooms()
+              .then((data) => {
+                setBRoomsData(data)
+                setIsLoading(false)
+              })
+              .catch((error) => {
+                setError(error.message)
+                setIsLoading(false)
+              })
+          }
+          return;
+        }
+        
+        try {
+          setIsLoading(true);
+          const data = await getUserProfile();
+          setUser(data);
+          setIsUserAuth(true);
+          getMyBookedRooms()
             .then((data) => {
                 setBRoomsData(data)
                 setIsLoading(false)
@@ -19,7 +62,20 @@ const MyBRoom = () => {
                 setError(error.message)
                 setIsLoading(false)
             })
-    }, [])
+        } catch (error) {
+          console.error('Error', error);
+          setUser(null);
+          setIsUserAuth(false);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        setUser(null);
+        setIsUserAuth(false);
+        setIsLoading(false);
+      }
+    };
+    checkAuthStatus();
+  }, []);
 
     if (isLoading) {
         return (

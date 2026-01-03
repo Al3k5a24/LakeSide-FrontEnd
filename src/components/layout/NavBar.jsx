@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Link, matchPath, NavLink, useLocation } from "react-router-dom";
 import { getUserProfile } from "../../utils/ApiAuth";
 import UserProfile from "../Authentication/UserProfile";
@@ -15,9 +15,9 @@ const NavBar = () => {
 
   const hideElementLogin = location.pathname === '/login';
   const hideElementRegister = location.pathname === '/register';
-  const currentURL = window.location.pathname;
 
-  const match = matchPath("/u/*", currentURL);
+  // Memoize match to prevent infinite loop - only recalculate when pathname changes
+  const match = useMemo(() => matchPath("/u/*", location.pathname), [location.pathname]);
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -28,23 +28,27 @@ const NavBar = () => {
           setIsUserAuth(false);
           return;
         }
+        
         try {
-          setIsLoading(false);
+          setIsLoading(true);
           const data = await getUserProfile();
           setUser(data);
           setIsUserAuth(true);
         } catch (error) {
           console.error('Error', error);
           setUser(null);
+          setIsUserAuth(false);
+        } finally {
           setIsLoading(false);
         }
       } catch (error) {
         setUser(null);
+        setIsUserAuth(false);
         setIsLoading(false);
       }
     };
     checkAuthStatus();
-  }, [currentURL, match]);
+  }, [location.pathname, match]);
 
   if (hideElementLogin || hideElementRegister) return null;
 
